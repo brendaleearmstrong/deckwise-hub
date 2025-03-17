@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,31 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// DeckSavvy specific colors
+				forest: {
+					DEFAULT: '#2E7D32',
+					light: '#4CAF50',
+					dark: '#1B5E20',
+					foreground: '#FFFFFF'
+				},
+				steel: {
+					DEFAULT: '#455A64',
+					light: '#607D8B',
+					dark: '#263238',
+					foreground: '#FFFFFF'
+				},
+				warning: {
+					DEFAULT: '#F57C00',
+					foreground: '#FFFFFF'
+				},
+				success: {
+					DEFAULT: '#43A047',
+					foreground: '#FFFFFF'
+				},
+				info: {
+					DEFAULT: '#0288D1',
+					foreground: '#FFFFFF'
 				}
 			},
 			borderRadius: {
@@ -84,11 +110,22 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'hammer-tap': {
+					'0%': { transform: 'rotate(0deg)' },
+					'25%': { transform: 'rotate(-15deg)' },
+					'50%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(0deg)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'hammer-tap': 'hammer-tap 0.3s ease-in-out'
+			},
+			fontFamily: {
+				'roboto': ['Roboto', 'sans-serif'],
+				'open-sans': ['"Open Sans"', 'sans-serif']
 			}
 		}
 	},

@@ -24,12 +24,12 @@ const ResourceCard = ({
     <Link
       to={link}
       className={cn(
-        "block p-4 rounded-lg border border-slate-200 bg-white hover:shadow-md transition-shadow",
+        "block p-4 rounded-lg border border-slate-200 bg-white hover:shadow-md transition-shadow h-full",
         className
       )}
     >
       <div className="flex items-start gap-3">
-        <div className={cn("p-2 rounded-md bg-slate-100", iconColor)}>
+        <div className={cn("p-2 rounded-md bg-slate-100 shrink-0", iconColor)}>
           <Icon className="h-5 w-5" />
         </div>
         <div>

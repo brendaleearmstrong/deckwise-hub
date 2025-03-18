@@ -12,9 +12,9 @@ const Guides = () => {
         Access construction guides, building codes, and best practices to ensure high-quality work and code compliance.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {guides.map((guide, index) => (
-          <Card key={index}>
+          <Card key={index} className="flex flex-col h-full">
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
                 <CardTitle className="text-lg flex items-center gap-2">
@@ -27,7 +27,7 @@ const Guides = () => {
               </div>
               <CardDescription>{guide.lastUpdated}</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-grow">
               <p className="text-sm text-slate-600 mb-3">{guide.description}</p>
               <div className="flex flex-wrap gap-2">
                 {guide.tags.map((tag, tagIndex) => (
@@ -37,17 +37,17 @@ const Guides = () => {
                 ))}
               </div>
             </CardContent>
-            <CardFooter className="flex gap-2">
-              <Button variant="outline" size="sm">
+            <CardFooter className="flex gap-2 flex-wrap">
+              <Button variant="outline" size="sm" className="flex-1 min-w-[100px]">
                 <BookOpen className="h-4 w-4 mr-1" /> Read
               </Button>
               {guide.hasDownload && (
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="flex-1 min-w-[100px]">
                   <FileText className="h-4 w-4 mr-1" /> PDF
                 </Button>
               )}
               {guide.externalLink && (
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="flex-1 min-w-[100px]">
                   <ExternalLink className="h-4 w-4 mr-1" /> Source
                 </Button>
               )}

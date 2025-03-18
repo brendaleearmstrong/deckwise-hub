@@ -12,9 +12,9 @@ const Templates = () => {
         Access professionally designed templates for contracts, invoices, proposals, and other project documentation.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {templates.map((template, index) => (
-          <Card key={index}>
+          <Card key={index} className="flex flex-col h-full">
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
                 <CardTitle className="text-lg flex items-center gap-2">
@@ -25,7 +25,7 @@ const Templates = () => {
               </div>
               <CardDescription>{template.category}</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="flex-grow">
               <p className="text-sm text-slate-600 mb-3">{template.description}</p>
               <div className="flex flex-wrap gap-2">
                 {template.tags.map((tag, tagIndex) => (
@@ -35,15 +35,15 @@ const Templates = () => {
                 ))}
               </div>
             </CardContent>
-            <CardFooter className="flex gap-2">
-              <Button variant="outline" size="sm">
+            <CardFooter className="flex gap-2 flex-wrap">
+              <Button variant="outline" size="sm" className="flex-1 min-w-[80px]">
                 <Eye className="h-4 w-4 mr-1" /> Preview
               </Button>
-              <Button className="bg-forest text-white hover:bg-forest/90" size="sm">
+              <Button className="bg-forest text-white hover:bg-forest/90 flex-1 min-w-[80px]" size="sm">
                 <Download className="h-4 w-4 mr-1" /> Download
               </Button>
               {template.editable && (
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="flex-1 min-w-[80px]">
                   <ExternalLink className="h-4 w-4 mr-1" /> Edit
                 </Button>
               )}

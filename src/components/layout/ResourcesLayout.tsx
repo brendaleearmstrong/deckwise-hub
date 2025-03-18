@@ -23,11 +23,11 @@ const ResourcesLayout = ({ children, title }: ResourcesLayoutProps) => {
         <h1 className="text-2xl font-bold mb-2">{title}</h1>
         <div className="border-b mb-4"></div>
         
-        <div className="flex overflow-x-auto gap-2 pb-3">
+        <div className="flex overflow-x-auto gap-2 pb-3 scrollbar-none -mx-4 px-4 md:mx-0 md:px-0">
           <Link
             to="/resources"
             className={cn(
-              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2",
+              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2 flex-shrink-0",
               isActive("/resources")
                 ? "bg-forest text-white"
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200"
@@ -38,7 +38,7 @@ const ResourcesLayout = ({ children, title }: ResourcesLayoutProps) => {
           <Link
             to="/resources/blueprints"
             className={cn(
-              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2",
+              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2 flex-shrink-0",
               isActive("/resources/blueprints")
                 ? "bg-forest text-white"
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200"
@@ -50,7 +50,7 @@ const ResourcesLayout = ({ children, title }: ResourcesLayoutProps) => {
           <Link
             to="/resources/guides"
             className={cn(
-              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2",
+              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2 flex-shrink-0",
               isActive("/resources/guides")
                 ? "bg-forest text-white"
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200"
@@ -62,7 +62,7 @@ const ResourcesLayout = ({ children, title }: ResourcesLayoutProps) => {
           <Link
             to="/resources/tools"
             className={cn(
-              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2",
+              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2 flex-shrink-0",
               isActive("/resources/tools")
                 ? "bg-forest text-white"
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200"
@@ -74,7 +74,7 @@ const ResourcesLayout = ({ children, title }: ResourcesLayoutProps) => {
           <Link
             to="/resources/templates"
             className={cn(
-              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2",
+              "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2 flex-shrink-0",
               isActive("/resources/templates")
                 ? "bg-forest text-white"
                 : "bg-slate-100 text-slate-700 hover:bg-slate-200"

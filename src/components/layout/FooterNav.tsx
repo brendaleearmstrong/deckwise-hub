@@ -6,7 +6,7 @@ import {
   Briefcase,
   Users,
   UserPlus,
-  MapPin,
+  FolderOpen,
 } from "lucide-react";
 
 const FooterNav = () => {
@@ -60,14 +60,14 @@ const FooterNav = () => {
           <span className="text-xs">Leads</span>
         </Link>
         <Link
-          to="/scheduler"
+          to="/resources"
           className={cn(
             "flex flex-col items-center justify-center gap-1",
-            isActive("/scheduler") ? "text-forest" : "text-slate-500"
+            isActive("/resources") ? "text-forest" : "text-slate-500"
           )}
         >
-          <MapPin className="h-5 w-5" />
-          <span className="text-xs">Map</span>
+          <FolderOpen className="h-5 w-5" />
+          <span className="text-xs">Resources</span>
         </Link>
       </div>
     </div>

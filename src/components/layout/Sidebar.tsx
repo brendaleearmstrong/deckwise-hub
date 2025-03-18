@@ -5,14 +5,22 @@ import {
   LayoutDashboard,
   Briefcase,
   Users,
-  FileText,
+  UserPlus,
   Package,
   Calendar,
   Hammer,
   CheckSquare,
   Settings,
   HelpCircle,
+  FileText,
+  Book,
+  Wrench,
+  FolderOpen,
+  ExternalLink,
+  ChevronRight,
+  ChevronDown,
 } from "lucide-react";
+import { useState } from "react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -20,9 +28,14 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen }: SidebarProps) => {
   const location = useLocation();
+  const [resourcesOpen, setResourcesOpen] = useState(false);
   
   const isActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  const isResourcesActive = () => {
+    return location.pathname.startsWith("/resources");
   };
 
   return (
@@ -76,17 +89,94 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             Clients
           </Link>
           <Link
-            to="/blueprints"
+            to="/leads"
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-              isActive("/blueprints")
+              isActive("/leads")
                 ? "bg-forest text-white"
                 : "text-slate-600 hover:bg-slate-100"
             )}
           >
-            <FileText className="h-5 w-5" />
-            Blueprints
+            <UserPlus className="h-5 w-5" />
+            Leads
           </Link>
+          
+          {/* Resources Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setResourcesOpen(!resourcesOpen)}
+              className={cn(
+                "w-full flex items-center justify-between gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                isResourcesActive()
+                  ? "bg-forest text-white"
+                  : "text-slate-600 hover:bg-slate-100"
+              )}
+            >
+              <div className="flex items-center gap-3">
+                <FolderOpen className="h-5 w-5" />
+                <span>Resources</span>
+              </div>
+              {resourcesOpen ? (
+                <ChevronDown className="h-4 w-4" />
+              ) : (
+                <ChevronRight className="h-4 w-4" />
+              )}
+            </button>
+            
+            {resourcesOpen && (
+              <div className="pl-10 mt-1 space-y-1">
+                <Link
+                  to="/resources/blueprints"
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    isActive("/resources/blueprints")
+                      ? "bg-forest text-white"
+                      : "text-slate-600 hover:bg-slate-100"
+                  )}
+                >
+                  <FileText className="h-4 w-4" />
+                  Blueprints
+                </Link>
+                <Link
+                  to="/resources/guides"
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    isActive("/resources/guides")
+                      ? "bg-forest text-white"
+                      : "text-slate-600 hover:bg-slate-100"
+                  )}
+                >
+                  <Book className="h-4 w-4" />
+                  Guides
+                </Link>
+                <Link
+                  to="/resources/tools"
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    isActive("/resources/tools")
+                      ? "bg-forest text-white"
+                      : "text-slate-600 hover:bg-slate-100"
+                  )}
+                >
+                  <Wrench className="h-4 w-4" />
+                  Tools
+                </Link>
+                <Link
+                  to="/resources/templates"
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    isActive("/resources/templates")
+                      ? "bg-forest text-white"
+                      : "text-slate-600 hover:bg-slate-100"
+                  )}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  Templates
+                </Link>
+              </div>
+            )}
+          </div>
+          
           <Link
             to="/materials"
             className={cn(

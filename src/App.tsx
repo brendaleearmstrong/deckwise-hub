@@ -12,6 +12,11 @@ import Clients from "./pages/Clients";
 import ClientDetail from "./pages/ClientDetail";
 import Leads from "./pages/Leads";
 import NotFound from "./pages/NotFound";
+import Resources from "./pages/Resources";
+import Blueprints from "./pages/resources/Blueprints";
+import Guides from "./pages/resources/Guides";
+import Tools from "./pages/resources/Tools";
+import Templates from "./pages/resources/Templates";
 
 const queryClient = new QueryClient();
 
@@ -29,8 +34,15 @@ const App = () => (
           <Route path="/clients" element={<Clients />} />
           <Route path="/clients/:id" element={<ClientDetail />} />
           <Route path="/leads" element={<Leads />} />
+          
+          {/* Resources Section */}
+          <Route path="/resources" element={<Resources />} />
+          <Route path="/resources/blueprints" element={<Blueprints />} />
+          <Route path="/resources/guides" element={<Guides />} />
+          <Route path="/resources/tools" element={<Tools />} />
+          <Route path="/resources/templates" element={<Templates />} />
+          
           {/* These routes are placeholders for future implementation */}
-          <Route path="/blueprints" element={<Dashboard />} />
           <Route path="/materials" element={<Dashboard />} />
           <Route path="/scheduler" element={<Dashboard />} />
           <Route path="/quality-checker" element={<Dashboard />} />

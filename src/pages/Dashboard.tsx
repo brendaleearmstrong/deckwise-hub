@@ -1,6 +1,8 @@
 
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import DashboardOverview from "@/components/dashboard/DashboardOverview";
+import AIAssistant from "@/components/dashboard/AIAssistant";
+import MLInsights from "@/components/dashboard/MLInsights";
 
 const Dashboard = () => {
   return (
@@ -13,6 +15,8 @@ const Dashboard = () => {
           </p>
         </div>
         <DashboardOverview />
+        <MLInsights />
+        <AIAssistant />
       </div>
     </DashboardLayout>
   );

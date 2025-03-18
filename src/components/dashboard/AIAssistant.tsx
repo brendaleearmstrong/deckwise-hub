@@ -1,18 +1,18 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Bot, MessageCircle, X, Minimize, Maximize } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
 const AIAssistant = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState([
     {
       sender: "ai",
-      text: "Hello! I'm your DeckSavvy assistant. How can I help you today?",
+      text: "Hello! I'm your Dekky assistant. How can I help you today?",
     },
   ]);
 
@@ -58,19 +58,11 @@ const AIAssistant = () => {
 
   return (
     <>
-      {!isOpen ? (
-        <Button
-          onClick={toggleOpen}
-          className="fixed bottom-4 right-4 rounded-full w-12 h-12 p-0 flex items-center justify-center bg-primary text-primary-foreground shadow-lg hover:shadow-xl"
-          aria-label="Open AI Assistant"
-        >
-          <Bot className="h-6 w-6" />
-        </Button>
-      ) : (
-        <Card className={`fixed transition-all duration-300 shadow-xl ${
+      {isOpen && (
+        <Card className={`fixed transition-all duration-300 shadow-xl z-50 ${
           isMinimized 
-            ? 'bottom-4 right-4 w-auto h-auto' 
-            : 'bottom-4 right-4 w-80 max-h-[500px] flex flex-col'
+            ? 'bottom-16 right-4 w-auto h-auto md:bottom-4' 
+            : 'bottom-16 right-4 w-80 max-h-[500px] flex flex-col md:bottom-4'
         }`}>
           {isMinimized ? (
             <Button
@@ -78,14 +70,14 @@ const AIAssistant = () => {
               className="rounded-md w-auto p-2 bg-primary text-primary-foreground flex items-center gap-2"
             >
               <Bot className="h-5 w-5" />
-              <span>AI Assistant</span>
+              <span>Dekky Assistant</span>
             </Button>
           ) : (
             <>
               <CardHeader className="p-3 flex flex-row items-center justify-between bg-primary text-primary-foreground">
                 <div className="flex items-center gap-2">
                   <Bot className="h-5 w-5" />
-                  <span className="font-medium">AI Assistant</span>
+                  <span className="font-medium">Dekky Assistant</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Button

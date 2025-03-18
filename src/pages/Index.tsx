@@ -24,7 +24,7 @@ const Index = () => {
         </div>
         
         <h1 className="text-4xl md:text-5xl font-bold text-slate-800">
-          Welcome to <span className="text-forest">DeckSavvy</span>
+          Welcome to <span className="text-forest">Dekky</span>
         </h1>
         
         <p className="text-xl text-slate-600 max-w-2xl mx-auto">
@@ -93,7 +93,7 @@ const Index = () => {
         </div>
         
         <p className="text-sm text-slate-500 mt-12">
-          DeckSavvy - Build Smarter, Manage Better.
+          Dekky - Build Smarter, Manage Better.
         </p>
       </div>
     </div>

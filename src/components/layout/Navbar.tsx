@@ -38,7 +38,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
           </Button>
           <Link to="/" className="flex items-center gap-2">
             <Hammer className="h-6 w-6 text-forest" />
-            <span className="font-roboto font-bold text-xl hidden md:inline-block">DeckSavvy</span>
+            <span className="font-roboto font-bold text-xl hidden md:inline-block">Dekky</span>
           </Link>
         </div>
 

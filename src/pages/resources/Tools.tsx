@@ -1,107 +1,182 @@
 
 import ResourcesLayout from "@/components/layout/ResourcesLayout";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Wrench, Calculator, Ruler, SquareGantt } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calculator, Ruler, Scale, Calendar } from "lucide-react";
 
 const Tools = () => {
   return (
     <ResourcesLayout title="Tools & Calculators">
       <p className="text-slate-600 mb-6">
-        Access tools and calculators to help plan your projects, estimate materials, and convert measurements.
+        Calculate materials, measurements, and costs for your decking and construction projects.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {tools.map((tool, index) => (
-          <Card key={index}>
-            <CardHeader className="pb-2">
-              <div className="flex justify-between items-start">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  {getToolIcon(tool.icon)}
-                  {tool.name}
-                </CardTitle>
-                <Badge variant={tool.premium ? "secondary" : "outline"}>
-                  {tool.premium ? "Premium" : "Free"}
-                </Badge>
-              </div>
-              <CardDescription>{tool.category}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-slate-600">{tool.description}</p>
-            </CardContent>
-            <CardFooter>
-              <Button className="w-full bg-forest text-white hover:bg-forest/90">
-                Open Tool
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+      <Tabs defaultValue="materials">
+        <TabsList className="mb-4">
+          <TabsTrigger value="materials">Material Calculators</TabsTrigger>
+          <TabsTrigger value="cost">Cost Estimators</TabsTrigger>
+          <TabsTrigger value="measurement">Measurement Tools</TabsTrigger>
+          <TabsTrigger value="scheduling">Scheduling Tools</TabsTrigger>
+        </TabsList>
+        
+        {/* Material Calculators */}
+        <TabsContent value="materials">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Calculator className="h-8 w-8 text-forest" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-2">Deck Board Calculator</h3>
+                    <p className="text-sm text-slate-600 mb-4">
+                      Calculate how many deck boards you'll need based on your deck dimensions.
+                    </p>
+                    <button className="text-sm text-forest hover:underline">
+                      Open Calculator →
+                    </button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Calculator className="h-8 w-8 text-forest" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-2">Joist Calculator</h3>
+                    <p className="text-sm text-slate-600 mb-4">
+                      Determine joist spacing and quantity based on deck size and loading requirements.
+                    </p>
+                    <button className="text-sm text-forest hover:underline">
+                      Open Calculator →
+                    </button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+        
+        {/* Cost Estimators */}
+        <TabsContent value="cost">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Scale className="h-8 w-8 text-forest" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-2">Project Cost Estimator</h3>
+                    <p className="text-sm text-slate-600 mb-4">
+                      Get a comprehensive cost breakdown for your entire deck project.
+                    </p>
+                    <button className="text-sm text-forest hover:underline">
+                      Open Estimator →
+                    </button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Scale className="h-8 w-8 text-forest" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-2">Materials Cost Calculator</h3>
+                    <p className="text-sm text-slate-600 mb-4">
+                      Calculate the cost of materials based on current market prices and your quantities.
+                    </p>
+                    <button className="text-sm text-forest hover:underline">
+                      Open Calculator →
+                    </button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+        
+        {/* Measurement Tools */}
+        <TabsContent value="measurement">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Ruler className="h-8 w-8 text-forest" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-2">Area Calculator</h3>
+                    <p className="text-sm text-slate-600 mb-4">
+                      Calculate the square footage of irregular deck shapes and spaces.
+                    </p>
+                    <button className="text-sm text-forest hover:underline">
+                      Open Calculator →
+                    </button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Ruler className="h-8 w-8 text-forest" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-2">Angle Finder</h3>
+                    <p className="text-sm text-slate-600 mb-4">
+                      Calculate angles for custom deck designs and miter cuts.
+                    </p>
+                    <button className="text-sm text-forest hover:underline">
+                      Open Tool →
+                    </button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+        
+        {/* Scheduling Tools */}
+        <TabsContent value="scheduling">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Calendar className="h-8 w-8 text-forest" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-2">Project Timeline Generator</h3>
+                    <p className="text-sm text-slate-600 mb-4">
+                      Create a realistic timeline for your deck construction project based on size and complexity.
+                    </p>
+                    <button className="text-sm text-forest hover:underline">
+                      Open Generator →
+                    </button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <Calendar className="h-8 w-8 text-forest" />
+                  <div>
+                    <h3 className="text-lg font-medium mb-2">Weather Impact Calculator</h3>
+                    <p className="text-sm text-slate-600 mb-4">
+                      Estimate how weather conditions might affect your project timeline.
+                    </p>
+                    <button className="text-sm text-forest hover:underline">
+                      Open Calculator →
+                    </button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+      </Tabs>
     </ResourcesLayout>
   );
 };
-
-// Helper function to get the appropriate icon
-const getToolIcon = (iconName: string) => {
-  switch (iconName) {
-    case "calculator":
-      return <Calculator className="h-5 w-5 text-forest" />;
-    case "ruler":
-      return <Ruler className="h-5 w-5 text-forest" />;
-    case "wrench":
-      return <Wrench className="h-5 w-5 text-forest" />;
-    case "gantt":
-      return <SquareGantt className="h-5 w-5 text-forest" />;
-    default:
-      return <Wrench className="h-5 w-5 text-forest" />;
-  }
-};
-
-// Mock data
-const tools = [
-  {
-    name: "Deck Material Calculator",
-    description: "Calculate exact lumber, fasteners, and hardware needed for your deck project.",
-    category: "Material Estimation",
-    icon: "calculator",
-    premium: false
-  },
-  {
-    name: "Board Foot Calculator",
-    description: "Convert between linear feet, board feet, and get pricing estimates.",
-    category: "Measurement",
-    icon: "ruler",
-    premium: false
-  },
-  {
-    name: "Joist Spacing Tool",
-    description: "Calculate optimal joist spacing based on deck dimensions and load requirements.",
-    category: "Structural",
-    icon: "wrench",
-    premium: false
-  },
-  {
-    name: "Project Timeline Generator",
-    description: "Create detailed project timelines with task dependencies and resource allocation.",
-    category: "Project Management",
-    icon: "gantt",
-    premium: true
-  },
-  {
-    name: "Deck Cost Estimator",
-    description: "Generate detailed cost breakdowns for deck projects based on materials and labor.",
-    category: "Estimation",
-    icon: "calculator",
-    premium: true
-  },
-  {
-    name: "Lumber Cut Optimizer",
-    description: "Minimize waste by calculating the most efficient cutting patterns for lumber.",
-    category: "Optimization",
-    icon: "wrench",
-    premium: false
-  }
-];
 
 export default Tools;

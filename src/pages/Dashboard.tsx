@@ -3,6 +3,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import DashboardOverview from "@/components/dashboard/DashboardOverview";
 import AIAssistant from "@/components/dashboard/AIAssistant";
 import MLInsights from "@/components/dashboard/MLInsights";
+import { currentUser } from "@/data/mockData";
 
 const Dashboard = () => {
   return (
@@ -11,7 +12,7 @@ const Dashboard = () => {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome to DeckSavvy. Here's an overview of your projects and alerts.
+            Welcome to Dekky, {currentUser.name}. Managing {currentUser.company.name} has never been easier.
           </p>
         </div>
         <DashboardOverview />

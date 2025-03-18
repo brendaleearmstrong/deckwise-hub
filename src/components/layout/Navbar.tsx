@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getUnreadAlerts } from "@/data/mockData";
+import { getUnreadAlerts, currentUser } from "@/data/mockData";
 
 interface NavbarProps {
   sidebarOpen: boolean;
@@ -22,6 +22,17 @@ interface NavbarProps {
 const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
   const unreadAlerts = getUnreadAlerts();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  
+  // Get user's initials for the avatar
+  const getInitials = (name: string) => {
+    const nameParts = name.split(' ');
+    if (nameParts.length >= 2) {
+      return `${nameParts[0][0]}${nameParts[1][0]}`;
+    }
+    return name.substring(0, 2);
+  };
+
+  const userInitials = getInitials(currentUser.name);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -103,12 +114,13 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Avatar className="h-8 w-8">
-                  <AvatarFallback className="bg-forest text-white">MB</AvatarFallback>
+                  <AvatarFallback className="bg-forest text-white">{userInitials}</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{currentUser.name}</DropdownMenuLabel>
+              <DropdownMenuLabel className="text-xs font-normal text-muted-foreground">{currentUser.email}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Profile</DropdownMenuItem>
               <DropdownMenuItem>Settings</DropdownMenuItem>

@@ -1,11 +1,12 @@
-
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Client, getProjectsByClientId } from "@/data/mockData";
-import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Calendar, Clock, User } from "lucide-react";
+import { ArrowLeft, Mail, Phone, MapPin, DollarSign, Calendar, Clock, User, Navigation } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ProjectCard from "../dashboard/ProjectCard";
+import { useGeolocation } from "@/hooks/useGeolocation";
+import { useState } from "react";
 
 interface ClientDetailProps {
   client: Client;
@@ -14,6 +15,8 @@ interface ClientDetailProps {
 const ClientDetail = ({ client }: ClientDetailProps) => {
   const navigate = useNavigate();
   const clientProjects = getProjectsByClientId(client.id);
+  const [showLocation, setShowLocation] = useState(false);
+  const location = useGeolocation();
   
   const getStatusBadge = () => {
     switch (client.status) {
@@ -48,6 +51,10 @@ const ClientDetail = ({ client }: ClientDetailProps) => {
       month: "long",
       day: "numeric",
     });
+  };
+
+  const toggleLocation = () => {
+    setShowLocation(prev => !prev);
   };
 
   return (
@@ -111,6 +118,41 @@ const ClientDetail = ({ client }: ClientDetailProps) => {
                     <MapPin className="h-4 w-4 text-muted-foreground" />
                     <span>{client.address}</span>
                   </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="flex items-center gap-2"
+                    onClick={toggleLocation}
+                  >
+                    <Navigation className="h-4 w-4" />
+                    {showLocation ? "Hide My Location" : "Show My Location"}
+                  </Button>
+                  
+                  {showLocation && (
+                    <div className="p-3 bg-muted rounded-md mt-2">
+                      {location.error ? (
+                        <p className="text-sm text-destructive">{location.error}</p>
+                      ) : location.latitude && location.longitude ? (
+                        <div className="space-y-1">
+                          <h4 className="font-medium text-sm">Your Current Location</h4>
+                          <p className="text-xs">Latitude: {location.latitude.toFixed(6)}</p>
+                          <p className="text-xs">Longitude: {location.longitude.toFixed(6)}</p>
+                          <p className="text-xs">Accuracy: ±{location.accuracy?.toFixed(0)} meters</p>
+                          <a 
+                            href={`https://maps.google.com/?q=${location.latitude},${location.longitude}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-primary hover:underline flex items-center gap-1 mt-1"
+                          >
+                            <MapPin className="h-3 w-3" />
+                            View on Google Maps
+                          </a>
+                        </div>
+                      ) : (
+                        <p className="text-sm">Getting your location...</p>
+                      )}
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">

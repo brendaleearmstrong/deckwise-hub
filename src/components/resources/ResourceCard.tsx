@@ -1,7 +1,8 @@
 
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, AlertCircle } from "lucide-react";
+import { useState } from "react";
 
 interface ResourceCardProps {
   title: string;

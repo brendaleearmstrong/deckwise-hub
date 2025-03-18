@@ -57,25 +57,25 @@ const blueprints = [
     name: "Standard Deck Design",
     description: "12' x 16' pressure-treated wood deck with railings",
     date: "Mar 12, 2025",
-    thumbnail: "https://placehold.co/400x300/e2e8f0/475569?text=Deck+Blueprint"
+    thumbnail: "/images/blueprints/deck-blueprint.jpg"
   },
   {
     name: "Pergola Design v2",
     description: "10' x 12' cedar pergola with lattice",
     date: "Mar 05, 2025",
-    thumbnail: "https://placehold.co/400x300/e2e8f0/475569?text=Pergola+Blueprint"
+    thumbnail: "/images/blueprints/pergola-blueprint.jpg"
   },
   {
     name: "Premium Deck Plan",
     description: "20' x 24' composite deck with built-in seating",
     date: "Feb 28, 2025",
-    thumbnail: "https://placehold.co/400x300/e2e8f0/475569?text=Premium+Deck"
+    thumbnail: "/images/blueprints/premium-deck-blueprint.jpg"
   },
   {
     name: "Garden Shed",
     description: "8' x 10' storage shed with gambrel roof",
     date: "Feb 15, 2025",
-    thumbnail: "https://placehold.co/400x300/e2e8f0/475569?text=Garden+Shed"
+    thumbnail: "/images/blueprints/shed-blueprint.jpg"
   }
 ];
 

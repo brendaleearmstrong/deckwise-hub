@@ -78,6 +78,35 @@ export interface Alert {
   isRead: boolean;
 }
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatarUrl?: string;
+  role: 'owner' | 'admin' | 'user';
+  company: {
+    name: string;
+    logo?: string;
+    address: string;
+    phone: string;
+    website?: string;
+  };
+}
+
+// Current User Profile
+export const currentUser: User = {
+  id: 'user-1',
+  name: 'Louis Armstrong',
+  email: 'louis@ottawadeckbuilders.com',
+  role: 'owner',
+  company: {
+    name: 'Ottawa Deck Builders',
+    address: '123 Carpenter St, Ottawa, ON K1S 5B3',
+    phone: '(613) 555-7890',
+    website: 'www.ottawadeckbuilders.com'
+  }
+};
+
 // Mock Clients
 export const mockClients: Client[] = [
   {

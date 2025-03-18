@@ -12,16 +12,16 @@ const Guides = () => {
         Access construction guides, building codes, and best practices to ensure high-quality work and code compliance.
       </p>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {guides.map((guide, index) => (
-          <Card key={index} className="flex flex-col h-full">
+          <Card key={index} className="flex flex-col h-full w-full">
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <Book className="h-5 w-5 text-forest" />
-                  {guide.title}
+                  <Book className="h-5 w-5 text-forest flex-shrink-0" />
+                  <span className="truncate">{guide.title}</span>
                 </CardTitle>
-                <Badge variant={guide.type === "Code" ? "destructive" : "default"}>
+                <Badge variant={guide.type === "Code" ? "destructive" : "default"} className="flex-shrink-0">
                   {guide.type}
                 </Badge>
               </div>

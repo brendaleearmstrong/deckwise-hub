@@ -12,16 +12,16 @@ const Templates = () => {
         Access professionally designed templates for contracts, invoices, proposals, and other project documentation.
       </p>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {templates.map((template, index) => (
-          <Card key={index} className="flex flex-col h-full">
+          <Card key={index} className="flex flex-col h-full w-full">
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-forest" />
-                  {template.name}
+                  <FileText className="h-5 w-5 text-forest flex-shrink-0" />
+                  <span className="truncate">{template.name}</span>
                 </CardTitle>
-                <Badge>{template.format}</Badge>
+                <Badge className="flex-shrink-0">{template.format}</Badge>
               </div>
               <CardDescription>{template.category}</CardDescription>
             </CardHeader>

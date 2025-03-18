@@ -9,33 +9,25 @@ interface ResourceCardProps {
   description: string;
   icon: LucideIcon;
   link: string;
-  iconColor?: string;
   className?: string;
 }
 
-const ResourceCard = ({
-  title,
-  description,
-  icon: Icon,
-  link,
-  iconColor = "text-forest",
-  className,
-}: ResourceCardProps) => {
+const ResourceCard = ({ title, description, icon: Icon, link, className }: ResourceCardProps) => {
   return (
-    <Link
+    <Link 
       to={link}
       className={cn(
-        "block p-4 rounded-lg border border-slate-200 bg-white hover:shadow-md transition-shadow h-full",
+        "block p-6 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 h-full w-full overflow-hidden",
         className
       )}
     >
-      <div className="flex items-start gap-3">
-        <div className={cn("p-2 rounded-md bg-slate-100 shrink-0", iconColor)}>
-          <Icon className="h-5 w-5" />
+      <div className="flex items-start gap-4">
+        <div className="bg-forest/10 p-3 rounded-full flex-shrink-0">
+          <Icon className="h-6 w-6 text-forest" />
         </div>
-        <div>
-          <h3 className="font-medium mb-1">{title}</h3>
-          <p className="text-sm text-slate-600">{description}</p>
+        <div className="space-y-2 overflow-hidden">
+          <h3 className="font-semibold text-lg text-left truncate">{title}</h3>
+          <p className="text-sm text-slate-600 text-left">{description}</p>
         </div>
       </div>
     </Link>

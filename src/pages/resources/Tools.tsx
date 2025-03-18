@@ -1,6 +1,8 @@
 
 import ResourcesLayout from "@/components/layout/ResourcesLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useIsMobile } from "@/hooks/use-mobile";
 import DeckBoardCalculator from "@/components/calculators/DeckBoardCalculator";
 import JoistCalculator from "@/components/calculators/JoistCalculator";
 import ProjectCostEstimator from "@/components/calculators/ProjectCostEstimator";
@@ -11,6 +13,8 @@ import ProjectTimelineGenerator from "@/components/calculators/ProjectTimelineGe
 import WeatherImpactCalculator from "@/components/calculators/WeatherImpactCalculator";
 
 const Tools = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <ResourcesLayout title="Tools & Calculators">
       <p className="text-slate-600 mb-6">
@@ -18,16 +22,20 @@ const Tools = () => {
       </p>
       
       <Tabs defaultValue="materials" className="w-full">
-        <TabsList className="mb-4 w-full overflow-x-auto flex whitespace-nowrap h-auto py-1 px-1 justify-start md:justify-center">
-          <TabsTrigger value="materials" className="flex-shrink-0 py-2">Material Calculators</TabsTrigger>
-          <TabsTrigger value="cost" className="flex-shrink-0 py-2">Cost Estimators</TabsTrigger>
-          <TabsTrigger value="measurement" className="flex-shrink-0 py-2">Measurement Tools</TabsTrigger>
-          <TabsTrigger value="scheduling" className="flex-shrink-0 py-2">Scheduling Tools</TabsTrigger>
-        </TabsList>
+        <div className="max-w-full overflow-hidden">
+          <ScrollArea className="w-full">
+            <TabsList className="mb-4 h-auto w-auto inline-flex whitespace-nowrap py-1 px-1">
+              <TabsTrigger value="materials" className="py-2">Material Calculators</TabsTrigger>
+              <TabsTrigger value="cost" className="py-2">Cost Estimators</TabsTrigger>
+              <TabsTrigger value="measurement" className="py-2">Measurement Tools</TabsTrigger>
+              <TabsTrigger value="scheduling" className="py-2">Scheduling Tools</TabsTrigger>
+            </TabsList>
+          </ScrollArea>
+        </div>
         
         {/* Material Calculators */}
         <TabsContent value="materials">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <DeckBoardCalculator />
             <JoistCalculator />
           </div>
@@ -35,7 +43,7 @@ const Tools = () => {
         
         {/* Cost Estimators */}
         <TabsContent value="cost">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <ProjectCostEstimator />
             <MaterialsCostCalculator />
           </div>
@@ -43,7 +51,7 @@ const Tools = () => {
         
         {/* Measurement Tools */}
         <TabsContent value="measurement">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <AreaCalculator />
             <AngleFinder />
           </div>
@@ -51,7 +59,7 @@ const Tools = () => {
         
         {/* Scheduling Tools */}
         <TabsContent value="scheduling">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <ProjectTimelineGenerator />
             <WeatherImpactCalculator />
           </div>

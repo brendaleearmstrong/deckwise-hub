@@ -48,7 +48,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
       <div className="h-full flex flex-col px-4 py-6">
         <div className="flex items-center gap-2 px-2 mb-8">
           <Hammer className="h-8 w-8 text-forest" />
-          <span className="font-roboto font-bold text-xl">DeckSavvy</span>
+          <span className="font-roboto font-bold text-xl">Dekky</span>
         </div>
         
         <nav className="space-y-1 flex-1">

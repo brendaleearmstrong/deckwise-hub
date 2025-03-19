@@ -11,6 +11,9 @@ import AreaCalculator from "@/components/calculators/AreaCalculator";
 import AngleFinder from "@/components/calculators/AngleFinder";
 import ProjectTimelineGenerator from "@/components/calculators/ProjectTimelineGenerator";
 import WeatherImpactCalculator from "@/components/calculators/WeatherImpactCalculator";
+import LoadCalculator from "@/components/calculators/LoadCalculator";
+import SlopeDrainageCalculator from "@/components/calculators/SlopeDrainageCalculator";
+import FastenerCalculator from "@/components/calculators/FastenerCalculator";
 
 const Tools = () => {
   const isMobile = useIsMobile();
@@ -28,6 +31,7 @@ const Tools = () => {
               <TabsTrigger value="materials" className="py-2">Material Calculators</TabsTrigger>
               <TabsTrigger value="cost" className="py-2">Cost Estimators</TabsTrigger>
               <TabsTrigger value="measurement" className="py-2">Measurement Tools</TabsTrigger>
+              <TabsTrigger value="structural" className="py-2">Structural Tools</TabsTrigger>
               <TabsTrigger value="scheduling" className="py-2">Scheduling Tools</TabsTrigger>
             </TabsList>
           </ScrollArea>
@@ -38,6 +42,7 @@ const Tools = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <DeckBoardCalculator />
             <JoistCalculator />
+            <FastenerCalculator />
           </div>
         </TabsContent>
         
@@ -54,6 +59,14 @@ const Tools = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <AreaCalculator />
             <AngleFinder />
+            <SlopeDrainageCalculator />
+          </div>
+        </TabsContent>
+        
+        {/* Structural Tools */}
+        <TabsContent value="structural">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <LoadCalculator />
           </div>
         </TabsContent>
         

@@ -63,7 +63,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// DeckSavvy specific colors
+				// DEKKY specific colors
 				forest: {
 					DEFAULT: '#2E7D32',
 					light: '#4CAF50',
@@ -74,6 +74,19 @@ export default {
 					DEFAULT: '#455A64',
 					light: '#607D8B',
 					dark: '#263238',
+					foreground: '#FFFFFF'
+				},
+				// New DEKKY color scheme
+				rust: {
+					DEFAULT: '#D84315',
+					light: '#F4511E',
+					dark: '#BF360C',
+					foreground: '#FFFFFF'
+				},
+				slate: {
+					DEFAULT: '#546E7A',
+					light: '#78909C',
+					dark: '#37474F',
 					foreground: '#FFFFFF'
 				},
 				warning: {
@@ -116,12 +129,19 @@ export default {
 					'25%': { transform: 'rotate(-15deg)' },
 					'50%': { transform: 'rotate(0deg)' },
 					'100%': { transform: 'rotate(0deg)' }
+				},
+				'nail-gun-tap': {
+					'0%': { transform: 'translateY(0)' },
+					'25%': { transform: 'translateY(2px)' },
+					'50%': { transform: 'translateY(0)' },
+					'100%': { transform: 'translateY(0)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'hammer-tap': 'hammer-tap 0.3s ease-in-out'
+				'hammer-tap': 'hammer-tap 0.3s ease-in-out',
+				'nail-gun-tap': 'nail-gun-tap 0.3s ease-in-out'
 			},
 			fontFamily: {
 				'roboto': ['Roboto', 'sans-serif'],

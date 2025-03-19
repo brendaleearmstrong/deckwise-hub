@@ -8,10 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { BarChart2, Info, Droplets } from "lucide-react";
 import { 
   ChartContainer, 
-  ChartTooltip, 
   ChartTooltipContent
 } from "@/components/ui/chart";
-import { Line, LineChart, XAxis, YAxis } from "recharts";
+import { Line, LineChart, XAxis, YAxis, Tooltip } from "recharts";
 
 const SlopeDrainageCalculator = () => {
   const [deckLength, setDeckLength] = useState<number>(20);
@@ -202,9 +201,19 @@ const SlopeDrainageCalculator = () => {
                     strokeWidth={2} 
                     dot={false}
                   />
-                  <ChartTooltip>
-                    <ChartTooltipContent />
-                  </ChartTooltip>
+                  <Tooltip 
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div className="custom-tooltip bg-white p-2 border border-gray-200 rounded shadow-sm">
+                            <p className="text-xs">{`Length: ${payload[0].payload.position.toFixed(1)} ft`}</p>
+                            <p className="text-xs">{`Height: ${payload[0].payload.height.toFixed(2)} in`}</p>
+                          </div>
+                        );
+                      }
+                      return null;
+                    }}
+                  />
                 </LineChart>
               </ChartContainer>
             </div>

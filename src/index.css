@@ -16,18 +16,18 @@
     --popover: 0 0% 100%;
     --popover-foreground: 200 13% 28%;
 
-    /* Rust orange primary */
-    --primary: 14 82% 46%;
+    /* Green primary (more like the image) */
+    --primary: 142 70% 30%;
     --primary-foreground: 0 0% 100%;
 
-    /* Slate blue secondary - updated to be more blue */
+    /* Slate blue secondary */
     --secondary: 210 40% 42%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 210 17% 95%;
     --muted-foreground: 200 13% 50%;
 
-    --accent: 14 82% 46%;
+    --accent: 142 70% 30%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -35,7 +35,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 14 82% 46%;
+    --ring: 142 70% 30%;
 
     --radius: 0.5rem;
   }
@@ -50,18 +50,18 @@
     --popover: 200 13% 18%;
     --popover-foreground: 0 0% 95%;
 
-    /* Rust orange primary */
-    --primary: 14 82% 46%;
+    /* Green primary (more like the image) */
+    --primary: 142 70% 30%;
     --primary-foreground: 0 0% 100%;
 
-    /* Slate blue secondary - updated to be more blue */
+    /* Slate blue secondary */
     --secondary: 210 40% 42%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 200 13% 20%;
     --muted-foreground: 200 13% 70%;
 
-    --accent: 14 82% 46%;
+    --accent: 142 70% 30%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -69,7 +69,7 @@
 
     --border: 200 13% 25%;
     --input: 200 13% 25%;
-    --ring: 14 82% 46%;
+    --ring: 142 70% 30%;
   }
 }
 

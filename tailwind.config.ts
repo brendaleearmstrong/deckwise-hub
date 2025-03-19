@@ -64,15 +64,25 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				slate: {
-					DEFAULT: '#3A5A7A', // Increased blue tone in slate
+					DEFAULT: '#3A5A7A',
 					light: '#6282A0',
 					dark: '#2A4560',
 					foreground: '#FFFFFF'
 				},
+				green: {
+					50: '#ECFDF5',
+					100: '#D1FAE5',
+					500: '#10B981',
+					600: '#059669',
+					700: '#047857',
+					800: '#065F46',
+					900: '#064E3B'
+				},
+				// Changed from rust to green to match the image
 				rust: {
-					DEFAULT: '#D84315',
-					light: '#F4511E',
-					dark: '#BF360C',
+					DEFAULT: '#2E7D32', // Changed to match the green in the image
+					light: '#4CAF50',
+					dark: '#1B5E20',
 					foreground: '#FFFFFF'
 				},
 				warning: {

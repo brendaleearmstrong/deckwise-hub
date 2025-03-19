@@ -47,7 +47,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
     >
       <div className="h-full flex flex-col px-4 py-6">
         <div className="flex items-center gap-2 px-2 mb-8">
-          <Hammer className="h-8 w-8 text-forest" />
+          <Hammer className="h-8 w-8 text-slate" />
           <span className="font-roboto font-bold text-xl">Dekky</span>
         </div>
         
@@ -57,7 +57,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
               isActive("/dashboard")
-                ? "bg-forest text-white"
+                ? "bg-slate text-white"
                 : "text-slate-600 hover:bg-slate-100"
             )}
           >
@@ -69,7 +69,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
               isActive("/projects")
-                ? "bg-forest text-white"
+                ? "bg-slate text-white"
                 : "text-slate-600 hover:bg-slate-100"
             )}
           >
@@ -81,7 +81,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
               isActive("/clients")
-                ? "bg-forest text-white"
+                ? "bg-slate text-white"
                 : "text-slate-600 hover:bg-slate-100"
             )}
           >
@@ -93,7 +93,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
               isActive("/leads")
-                ? "bg-forest text-white"
+                ? "bg-slate text-white"
                 : "text-slate-600 hover:bg-slate-100"
             )}
           >
@@ -108,7 +108,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
               className={cn(
                 "w-full flex items-center justify-between gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                 isResourcesActive()
-                  ? "bg-forest text-white"
+                  ? "bg-slate text-white"
                   : "text-slate-600 hover:bg-slate-100"
               )}
             >
@@ -130,7 +130,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
                   className={cn(
                     "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                     isActive("/resources/blueprints")
-                      ? "bg-forest text-white"
+                      ? "bg-slate text-white"
                       : "text-slate-600 hover:bg-slate-100"
                   )}
                 >
@@ -142,7 +142,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
                   className={cn(
                     "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                     isActive("/resources/guides")
-                      ? "bg-forest text-white"
+                      ? "bg-slate text-white"
                       : "text-slate-600 hover:bg-slate-100"
                   )}
                 >
@@ -154,7 +154,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
                   className={cn(
                     "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                     isActive("/resources/tools")
-                      ? "bg-forest text-white"
+                      ? "bg-slate text-white"
                       : "text-slate-600 hover:bg-slate-100"
                   )}
                 >
@@ -166,7 +166,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
                   className={cn(
                     "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
                     isActive("/resources/templates")
-                      ? "bg-forest text-white"
+                      ? "bg-slate text-white"
                       : "text-slate-600 hover:bg-slate-100"
                   )}
                 >
@@ -182,7 +182,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
               isActive("/materials")
-                ? "bg-forest text-white"
+                ? "bg-slate text-white"
                 : "text-slate-600 hover:bg-slate-100"
             )}
           >
@@ -194,7 +194,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
               isActive("/scheduler")
-                ? "bg-forest text-white"
+                ? "bg-slate text-white"
                 : "text-slate-600 hover:bg-slate-100"
             )}
           >
@@ -206,7 +206,7 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
               isActive("/quality-checker")
-                ? "bg-forest text-white"
+                ? "bg-slate text-white"
                 : "text-slate-600 hover:bg-slate-100"
             )}
           >

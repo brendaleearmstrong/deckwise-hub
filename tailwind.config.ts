@@ -78,11 +78,11 @@ export default {
 					800: '#065F46',
 					900: '#064E3B'
 				},
-				// Changed from rust to green to match the image
+				// Changed from green to blue
 				rust: {
-					DEFAULT: '#2E7D32', // Changed to match the green in the image
-					light: '#4CAF50',
-					dark: '#1B5E20',
+					DEFAULT: '#3A5A7A', // Changed to match the slate blue
+					light: '#6282A0',
+					dark: '#2A4560',
 					foreground: '#FFFFFF'
 				},
 				warning: {

@@ -62,14 +62,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Replace forest with slate
 				slate: {
-					DEFAULT: '#546E7A',
-					light: '#78909C',
-					dark: '#37474F',
+					DEFAULT: '#4A6B8A',
+					light: '#7593AD',
+					dark: '#2C4761',
 					foreground: '#FFFFFF'
 				},
-				// Keep DEKKY specific colors
 				rust: {
 					DEFAULT: '#D84315',
 					light: '#F4511E',

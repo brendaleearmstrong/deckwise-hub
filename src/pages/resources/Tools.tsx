@@ -13,14 +13,13 @@ import MaterialsCostCalculator from "@/components/calculators/MaterialsCostCalcu
 import ProjectCostEstimator from "@/components/calculators/ProjectCostEstimator";
 import ProjectTimelineGenerator from "@/components/calculators/ProjectTimelineGenerator";
 import WeatherImpactCalculator from "@/components/calculators/WeatherImpactCalculator";
-import BlueprintAnalyzer from "@/components/calculators/BlueprintAnalyzer";
 import { 
   FileStack, 
   Droplets, 
   Weight, 
   Hammer, 
   SquareStack, 
-  Tool, 
+  Wrench, 
   AreaChart, 
   Compass, 
   DollarSign, 
@@ -36,12 +35,8 @@ const Tools = () => {
         Use these tools and calculators to help plan and execute your construction projects efficiently.
       </p>
       
-      <Tabs defaultValue="blueprint">
+      <Tabs defaultValue="slope">
         <TabsList className="w-full flex flex-wrap h-auto gap-2 bg-transparent">
-          <TabsTrigger value="blueprint" className="data-[state=active]:bg-slate data-[state=active]:text-white flex items-center gap-1">
-            <FileStack className="h-4 w-4" />
-            <span>Blueprint Analyzer</span>
-          </TabsTrigger>
           <TabsTrigger value="slope" className="data-[state=active]:bg-slate data-[state=active]:text-white flex items-center gap-1">
             <Droplets className="h-4 w-4" />
             <span>Slope & Drainage</span>
@@ -59,7 +54,7 @@ const Tools = () => {
             <span>Deck Board</span>
           </TabsTrigger>
           <TabsTrigger value="fastener" className="data-[state=active]:bg-slate data-[state=active]:text-white flex items-center gap-1">
-            <Tool className="h-4 w-4" />
+            <Wrench className="h-4 w-4" />
             <span>Fastener</span>
           </TabsTrigger>
           <TabsTrigger value="area" className="data-[state=active]:bg-slate data-[state=active]:text-white flex items-center gap-1">
@@ -89,9 +84,6 @@ const Tools = () => {
         </TabsList>
         
         <div className="mt-6">
-          <TabsContent value="blueprint">
-            <BlueprintAnalyzer />
-          </TabsContent>
           <TabsContent value="slope">
             <SlopeDrainageCalculator />
           </TabsContent>

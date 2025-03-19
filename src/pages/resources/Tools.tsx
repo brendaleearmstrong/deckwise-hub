@@ -1,82 +1,105 @@
 
 import ResourcesLayout from "@/components/layout/ResourcesLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useIsMobile } from "@/hooks/use-mobile";
-import DeckBoardCalculator from "@/components/calculators/DeckBoardCalculator";
-import JoistCalculator from "@/components/calculators/JoistCalculator";
-import ProjectCostEstimator from "@/components/calculators/ProjectCostEstimator";
-import MaterialsCostCalculator from "@/components/calculators/MaterialsCostCalculator";
-import AreaCalculator from "@/components/calculators/AreaCalculator";
+import { Card } from "@/components/ui/card";
+import SlopeDrainageCalculator from "@/components/calculators/SlopeDrainageCalculator";
 import AngleFinder from "@/components/calculators/AngleFinder";
+import AreaCalculator from "@/components/calculators/AreaCalculator";
+import DeckBoardCalculator from "@/components/calculators/DeckBoardCalculator";
+import FastenerCalculator from "@/components/calculators/FastenerCalculator";
+import JoistCalculator from "@/components/calculators/JoistCalculator";
+import LoadCalculator from "@/components/calculators/LoadCalculator";
+import MaterialsCostCalculator from "@/components/calculators/MaterialsCostCalculator";
+import ProjectCostEstimator from "@/components/calculators/ProjectCostEstimator";
 import ProjectTimelineGenerator from "@/components/calculators/ProjectTimelineGenerator";
 import WeatherImpactCalculator from "@/components/calculators/WeatherImpactCalculator";
-import LoadCalculator from "@/components/calculators/LoadCalculator";
-import SlopeDrainageCalculator from "@/components/calculators/SlopeDrainageCalculator";
-import FastenerCalculator from "@/components/calculators/FastenerCalculator";
+import BlueprintAnalyzer from "@/components/calculators/BlueprintAnalyzer";
 
 const Tools = () => {
-  const isMobile = useIsMobile();
-  
   return (
     <ResourcesLayout title="Tools & Calculators">
       <p className="text-slate-600 mb-6">
-        Calculate materials, measurements, and costs for your decking and construction projects using Canadian standards.
+        Use these tools and calculators to help plan and execute your construction projects efficiently.
       </p>
       
-      <Tabs defaultValue="materials" className="w-full">
-        <div className="max-w-full overflow-hidden">
-          <ScrollArea className="w-full">
-            <TabsList className="mb-4 h-auto w-auto inline-flex whitespace-nowrap py-1 px-1">
-              <TabsTrigger value="materials" className="py-2">Material Calculators</TabsTrigger>
-              <TabsTrigger value="cost" className="py-2">Cost Estimators</TabsTrigger>
-              <TabsTrigger value="measurement" className="py-2">Measurement Tools</TabsTrigger>
-              <TabsTrigger value="structural" className="py-2">Structural Tools</TabsTrigger>
-              <TabsTrigger value="scheduling" className="py-2">Scheduling Tools</TabsTrigger>
-            </TabsList>
-          </ScrollArea>
-        </div>
+      <Tabs defaultValue="blueprint">
+        <TabsList className="w-full flex flex-wrap h-auto gap-2 bg-transparent">
+          <TabsTrigger value="blueprint" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Blueprint Analyzer
+          </TabsTrigger>
+          <TabsTrigger value="slope" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Slope & Drainage
+          </TabsTrigger>
+          <TabsTrigger value="load" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Load Calculator
+          </TabsTrigger>
+          <TabsTrigger value="joist" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Joist Calculator
+          </TabsTrigger>
+          <TabsTrigger value="deckboard" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Deck Board
+          </TabsTrigger>
+          <TabsTrigger value="fastener" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Fastener
+          </TabsTrigger>
+          <TabsTrigger value="area" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Area
+          </TabsTrigger>
+          <TabsTrigger value="angle" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Angle Finder
+          </TabsTrigger>
+          <TabsTrigger value="materials" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Materials Cost
+          </TabsTrigger>
+          <TabsTrigger value="project" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Project Cost
+          </TabsTrigger>
+          <TabsTrigger value="timeline" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Timeline
+          </TabsTrigger>
+          <TabsTrigger value="weather" className="data-[state=active]:bg-slate data-[state=active]:text-white">
+            Weather Impact
+          </TabsTrigger>
+        </TabsList>
         
-        {/* Material Calculators */}
-        <TabsContent value="materials">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <DeckBoardCalculator />
-            <JoistCalculator />
-            <FastenerCalculator />
-          </div>
-        </TabsContent>
-        
-        {/* Cost Estimators */}
-        <TabsContent value="cost">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <ProjectCostEstimator />
-            <MaterialsCostCalculator />
-          </div>
-        </TabsContent>
-        
-        {/* Measurement Tools */}
-        <TabsContent value="measurement">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <AreaCalculator />
-            <AngleFinder />
+        <div className="mt-6">
+          <TabsContent value="blueprint">
+            <BlueprintAnalyzer />
+          </TabsContent>
+          <TabsContent value="slope">
             <SlopeDrainageCalculator />
-          </div>
-        </TabsContent>
-        
-        {/* Structural Tools */}
-        <TabsContent value="structural">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          </TabsContent>
+          <TabsContent value="load">
             <LoadCalculator />
-          </div>
-        </TabsContent>
-        
-        {/* Scheduling Tools */}
-        <TabsContent value="scheduling">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          </TabsContent>
+          <TabsContent value="joist">
+            <JoistCalculator />
+          </TabsContent>
+          <TabsContent value="deckboard">
+            <DeckBoardCalculator />
+          </TabsContent>
+          <TabsContent value="fastener">
+            <FastenerCalculator />
+          </TabsContent>
+          <TabsContent value="area">
+            <AreaCalculator />
+          </TabsContent>
+          <TabsContent value="angle">
+            <AngleFinder />
+          </TabsContent>
+          <TabsContent value="materials">
+            <MaterialsCostCalculator />
+          </TabsContent>
+          <TabsContent value="project">
+            <ProjectCostEstimator />
+          </TabsContent>
+          <TabsContent value="timeline">
             <ProjectTimelineGenerator />
+          </TabsContent>
+          <TabsContent value="weather">
             <WeatherImpactCalculator />
-          </div>
-        </TabsContent>
+          </TabsContent>
+        </div>
       </Tabs>
     </ResourcesLayout>
   );

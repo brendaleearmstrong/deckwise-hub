@@ -11,7 +11,7 @@ const Blueprints = () => {
         <p className="text-slate-600 max-w-full overflow-hidden">
           Manage your deck and structure blueprints. Upload new designs or access existing ones.
         </p>
-        <Button className="bg-forest text-white hover:bg-forest/90 whitespace-nowrap">
+        <Button className="bg-slate text-white hover:bg-slate/90 whitespace-nowrap">
           <Upload className="h-4 w-4 mr-2" /> Upload New
         </Button>
       </div>
@@ -21,7 +21,7 @@ const Blueprints = () => {
           <Card key={index} className="flex flex-col h-full w-full">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg flex items-center gap-2">
-                <FileText className="h-5 w-5 text-forest flex-shrink-0" />
+                <FileText className="h-5 w-5 text-slate flex-shrink-0" />
                 <span className="truncate">{blueprint.name}</span>
               </CardTitle>
               <CardDescription>{blueprint.date}</CardDescription>

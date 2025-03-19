@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,30 +62,18 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// DEKKY specific colors
-				forest: {
-					DEFAULT: '#2E7D32',
-					light: '#4CAF50',
-					dark: '#1B5E20',
-					foreground: '#FFFFFF'
-				},
-				steel: {
-					DEFAULT: '#455A64',
-					light: '#607D8B',
-					dark: '#263238',
-					foreground: '#FFFFFF'
-				},
-				// New DEKKY color scheme
-				rust: {
-					DEFAULT: '#D84315',
-					light: '#F4511E',
-					dark: '#BF360C',
-					foreground: '#FFFFFF'
-				},
+				// Replace forest with slate
 				slate: {
 					DEFAULT: '#546E7A',
 					light: '#78909C',
 					dark: '#37474F',
+					foreground: '#FFFFFF'
+				},
+				// Keep DEKKY specific colors
+				rust: {
+					DEFAULT: '#D84315',
+					light: '#F4511E',
+					dark: '#BF360C',
 					foreground: '#FFFFFF'
 				},
 				warning: {

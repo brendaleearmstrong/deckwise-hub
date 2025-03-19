@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -94,7 +93,7 @@ const SlopeDrainageCalculator = () => {
     <Card className="h-full">
       <CardHeader>
         <CardTitle className="text-xl font-semibold flex items-center">
-          <Droplets className="h-5 w-5 mr-2 text-forest" />
+          <Droplets className="h-5 w-5 mr-2 text-slate" />
           Slope & Drainage Calculator
         </CardTitle>
       </CardHeader>
@@ -152,7 +151,7 @@ const SlopeDrainageCalculator = () => {
           </Select>
         </div>
 
-        <Button className="w-full bg-forest hover:bg-forest/90" onClick={calculateSlope}>
+        <Button className="w-full bg-slate hover:bg-slate/90" onClick={calculateSlope}>
           Calculate Slope & Drainage
         </Button>
 
@@ -177,8 +176,8 @@ const SlopeDrainageCalculator = () => {
                   slope: {
                     label: "Slope",
                     theme: {
-                      light: "#2E7D32",
-                      dark: "#4CAF50"
+                      light: "#546E7A",
+                      dark: "#78909C"
                     }
                   }
                 }}
@@ -197,7 +196,7 @@ const SlopeDrainageCalculator = () => {
                     type="monotone" 
                     dataKey="height" 
                     name="slope" 
-                    stroke="var(--color-slope, #2E7D32)" 
+                    stroke="var(--color-slope, #546E7A)" 
                     strokeWidth={2} 
                     dot={false}
                   />

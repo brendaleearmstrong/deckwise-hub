@@ -20,7 +20,7 @@ import {
   Weight, 
   Hammer, 
   SquareStack, 
-  Screwdriver, 
+  Tool, 
   AreaChart, 
   Compass, 
   DollarSign, 
@@ -59,7 +59,7 @@ const Tools = () => {
             <span>Deck Board</span>
           </TabsTrigger>
           <TabsTrigger value="fastener" className="data-[state=active]:bg-slate data-[state=active]:text-white flex items-center gap-1">
-            <Screwdriver className="h-4 w-4" />
+            <Tool className="h-4 w-4" />
             <span>Fastener</span>
           </TabsTrigger>
           <TabsTrigger value="area" className="data-[state=active]:bg-slate data-[state=active]:text-white flex items-center gap-1">

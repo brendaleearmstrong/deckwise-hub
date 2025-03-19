@@ -21,7 +21,7 @@
     --primary-foreground: 0 0% 100%;
 
     /* Slate blue secondary - updated to be more blue */
-    --secondary: 210 30% 42%;
+    --secondary: 210 40% 42%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 210 17% 95%;
@@ -55,7 +55,7 @@
     --primary-foreground: 0 0% 100%;
 
     /* Slate blue secondary - updated to be more blue */
-    --secondary: 210 30% 42%;
+    --secondary: 210 40% 42%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 200 13% 20%;

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,9 +64,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				slate: {
-					DEFAULT: '#4A6B8A',
-					light: '#7593AD',
-					dark: '#2C4761',
+					DEFAULT: '#3A5A7A', // Increased blue tone in slate
+					light: '#6282A0',
+					dark: '#2A4560',
 					foreground: '#FFFFFF'
 				},
 				rust: {

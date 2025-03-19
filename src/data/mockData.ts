@@ -97,13 +97,13 @@ export interface User {
 export const currentUser: User = {
   id: 'user-1',
   name: 'Louis Armstrong',
-  email: 'louis@ottawadeckbuilders.com',
+  email: 'louis@outdoorlivingstructures.com',
   role: 'owner',
   company: {
-    name: 'Ottawa Deck Builders',
+    name: 'Outdoor Living Structures',
     address: '123 Carpenter St, Ottawa, ON K1S 5B3',
     phone: '(613) 555-7890',
-    website: 'www.ottawadeckbuilders.com'
+    website: 'www.outdoorlivingstructures.com'
   }
 };
 

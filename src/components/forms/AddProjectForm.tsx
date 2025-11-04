@@ -17,7 +17,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { mockClients } from "@/data/mockData";
+import { supabase } from "@/lib/supabase";
+
+interface Client {
+  id: string;
+  name: string;
+}
+
+const DEMO_USER_ID = "00000000-0000-0000-0000-000000000001";
 
 interface AddProjectFormProps {
   open: boolean;
@@ -59,6 +66,25 @@ export default function AddProjectForm({
     address: "",
     notes: "",
   });
+  const [clients, setClients] = useState<Client[]>([]);
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      const { data, error } = await supabase
+        .from("clients")
+        .select("id, name")
+        .eq("user_id", DEMO_USER_ID)
+        .order("name");
+
+      if (!error && data) {
+        setClients(data);
+      }
+    };
+
+    if (open) {
+      fetchClients();
+    }
+  }, [open]);
 
   useEffect(() => {
     if (preselectedClientId && formData.clientId !== preselectedClientId) {
@@ -118,7 +144,7 @@ export default function AddProjectForm({
                   <SelectValue placeholder="Select a client" />
                 </SelectTrigger>
                 <SelectContent>
-                  {mockClients.map((client) => (
+                  {clients.map((client) => (
                     <SelectItem key={client.id} value={client.id}>
                       {client.name}
                     </SelectItem>

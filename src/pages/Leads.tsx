@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import AddLeadForm, { LeadFormData } from "@/components/forms/AddLeadForm";
 import { Button } from "@/components/ui/button";
@@ -12,43 +12,100 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
-import { mockClients } from "@/data/mockData";
-import { Plus, Search, Phone, Mail, AlertTriangle, Timer } from "lucide-react";
+import { Plus, Search, Phone, Mail, AlertTriangle, Timer, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
 
-// We'll consider leads as clients with status "pending" or with a specific lead status
-// For demonstration purposes, we'll filter the mock clients data
-const mockLeads = mockClients.filter(client => 
-  client.status === "pending" || client.notes?.includes("lead")
-).map(client => ({
-  ...client,
-  leadStatus: Math.random() > 0.5 ? "hot" : Math.random() > 0.5 ? "warm" : "cold",
-  followUpDate: new Date(Date.now() + Math.floor(Math.random() * 10) * 24 * 60 * 60 * 1000).toISOString(),
-  source: ["Referral", "Website", "Social Media", "Home Show", "Direct Mail"][Math.floor(Math.random() * 5)]
-}));
+interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  total_budget: number;
+  lead_status?: string;
+  source?: string;
+  follow_up_date?: string;
+  notes?: string;
+  created_at?: string;
+}
+
+const DEMO_USER_ID = "00000000-0000-0000-0000-000000000001";
 
 const Leads = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sourceFilter, setSourceFilter] = useState("all");
   const [isAddLeadOpen, setIsAddLeadOpen] = useState(false);
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleAddLead = (data: LeadFormData) => {
-    console.log("New lead:", data);
-    toast.success("Lead added successfully!");
+  const fetchLeads = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("clients")
+        .select("*")
+        .eq("user_id", DEMO_USER_ID)
+        .eq("status", "pending")
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setLeads(data || []);
+    } catch (error) {
+      console.error("Error fetching leads:", error);
+      toast.error("Failed to load leads");
+    } finally {
+      setLoading(false);
+    }
   };
-  
-  // Filter leads based on search query and filters
-  const filteredLeads = mockLeads.filter((lead) => {
-    const matchesSearch = lead.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+
+  useEffect(() => {
+    fetchLeads();
+  }, []);
+
+  const handleAddLead = async (data: LeadFormData) => {
+    try {
+      const { error } = await supabase.from("clients").insert([
+        {
+          user_id: DEMO_USER_ID,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          address: data.address || "",
+          status: "pending",
+          payment_status: "unpaid",
+          total_budget: data.totalBudget,
+          amount_paid: 0,
+          notes: data.notes,
+          last_contact: new Date().toISOString().split("T")[0],
+          priority: "medium",
+          lead_status: data.leadStatus,
+          source: data.source,
+          follow_up_date: data.followUpDate,
+        },
+      ]);
+
+      if (error) throw error;
+
+      toast.success("Lead added successfully!");
+      fetchLeads();
+    } catch (error) {
+      console.error("Error adding lead:", error);
+      toast.error("Failed to add lead");
+    }
+  };
+
+  const filteredLeads = leads.filter((lead) => {
+    const matchesSearch = lead.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           lead.email.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesStatus = statusFilter === "all" || lead.leadStatus === statusFilter;
-    
+
+    const matchesStatus = statusFilter === "all" || lead.lead_status === statusFilter;
+
     const matchesSource = sourceFilter === "all" || lead.source === sourceFilter;
-    
+
     return matchesSearch && matchesStatus && matchesSource;
   });
 
@@ -128,64 +185,76 @@ const Leads = () => {
           </Select>
         </div>
         
-        <div className="grid grid-cols-1 gap-4">
-          {filteredLeads.map((lead) => (
-            <Link key={lead.id} to={`/clients/${lead.id}`}>
-              <Card className="card-hover h-full">
-                <CardContent className="p-4">
-                  <div className="flex flex-col sm:flex-row gap-4 justify-between">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-medium">{lead.name}</h3>
-                        <div className="flex items-center gap-1">
-                          {getLeadStatusIcon(lead.leadStatus)}
-                          <span className={cn(
-                            "text-xs",
-                            lead.leadStatus === "hot" ? "text-red-500" :
-                            lead.leadStatus === "warm" ? "text-amber-500" :
-                            "text-blue-500"
-                          )}>
-                            {lead.leadStatus.toUpperCase()}
-                          </span>
+        {loading ? (
+          <div className="flex justify-center items-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4">
+            {filteredLeads.map((lead) => (
+              <Link key={lead.id} to={`/clients/${lead.id}`}>
+                <Card className="card-hover h-full">
+                  <CardContent className="p-4">
+                    <div className="flex flex-col sm:flex-row gap-4 justify-between">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-medium">{lead.name}</h3>
+                          {lead.lead_status && (
+                            <div className="flex items-center gap-1">
+                              {getLeadStatusIcon(lead.lead_status)}
+                              <span className={cn(
+                                "text-xs",
+                                lead.lead_status === "hot" ? "text-red-500" :
+                                lead.lead_status === "warm" ? "text-amber-500" :
+                                "text-blue-500"
+                              )}>
+                                {lead.lead_status.toUpperCase()}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex items-center text-sm text-muted-foreground">
+                          <Mail className="h-4 w-4 mr-2" />
+                          <span className="truncate">{lead.email}</span>
+                        </div>
+                        <div className="flex items-center text-sm text-muted-foreground">
+                          <Phone className="h-4 w-4 mr-2" />
+                          <span>{lead.phone}</span>
                         </div>
                       </div>
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Mail className="h-4 w-4 mr-2" />
-                        <span className="truncate">{lead.email}</span>
-                      </div>
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Phone className="h-4 w-4 mr-2" />
-                        <span>{lead.phone}</span>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-1 sm:text-right">
-                      <div className="text-sm font-medium">
-                        Follow up: {formatDate(lead.followUpDate)}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Source: {lead.source}
-                      </div>
-                      <div className="text-sm">
-                        <span className="font-medium">${lead.totalBudget.toLocaleString()}</span>
-                        <span className="text-muted-foreground"> estimated budget</span>
+
+                      <div className="space-y-1 sm:text-right">
+                        {lead.follow_up_date && (
+                          <div className="text-sm font-medium">
+                            Follow up: {formatDate(lead.follow_up_date)}
+                          </div>
+                        )}
+                        {lead.source && (
+                          <div className="text-sm text-muted-foreground">
+                            Source: {lead.source}
+                          </div>
+                        )}
+                        <div className="text-sm">
+                          <span className="font-medium">${lead.total_budget.toLocaleString()}</span>
+                          <span className="text-muted-foreground"> estimated budget</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-          
-          {filteredLeads.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <p className="text-lg font-medium">No leads found</p>
-              <p className="text-muted-foreground">
-                Try adjusting your search or filters
-              </p>
-            </div>
-          )}
-        </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+
+            {filteredLeads.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <p className="text-lg font-medium">No leads found</p>
+                <p className="text-muted-foreground">
+                  Try adjusting your search or filters
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <AddLeadForm

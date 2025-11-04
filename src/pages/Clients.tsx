@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import ClientCard from "@/components/clients/ClientCard";
 import AddClientForm, { ClientFormData } from "@/components/forms/AddClientForm";
@@ -12,30 +12,96 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
-import { mockClients } from "@/data/mockData";
-import { Plus, Search } from "lucide-react";
+import { Plus, Search, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/lib/supabase";
+
+interface Client {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  status: string;
+  payment_status: string;
+  total_budget: number;
+  amount_paid: number;
+  notes: string;
+  last_contact: string;
+  priority: string;
+  created_at?: string;
+}
+
+const DEMO_USER_ID = "00000000-0000-0000-0000-000000000001";
 
 const Clients = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [paymentFilter, setPaymentFilter] = useState("all");
   const [isAddClientOpen, setIsAddClientOpen] = useState(false);
+  const [clients, setClients] = useState<Client[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleAddClient = (data: ClientFormData) => {
-    console.log("New client:", data);
-    toast.success("Client added successfully!");
+  const fetchClients = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from("clients")
+        .select("*")
+        .eq("user_id", DEMO_USER_ID)
+        .order("created_at", { ascending: false });
+
+      if (error) throw error;
+      setClients(data || []);
+    } catch (error) {
+      console.error("Error fetching clients:", error);
+      toast.error("Failed to load clients");
+    } finally {
+      setLoading(false);
+    }
   };
-  
-  // Filter clients based on search query and filters
-  const filteredClients = mockClients.filter((client) => {
-    const matchesSearch = client.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+
+  useEffect(() => {
+    fetchClients();
+  }, []);
+
+  const handleAddClient = async (data: ClientFormData) => {
+    try {
+      const { error } = await supabase.from("clients").insert([
+        {
+          user_id: DEMO_USER_ID,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          address: data.address,
+          status: "pending",
+          payment_status: "unpaid",
+          total_budget: data.totalBudget,
+          amount_paid: 0,
+          notes: data.notes,
+          last_contact: new Date().toISOString().split("T")[0],
+          priority: data.priority,
+        },
+      ]);
+
+      if (error) throw error;
+
+      toast.success("Client added successfully!");
+      fetchClients();
+    } catch (error) {
+      console.error("Error adding client:", error);
+      toast.error("Failed to add client");
+    }
+  };
+
+  const filteredClients = clients.filter((client) => {
+    const matchesSearch = client.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           client.email.toLowerCase().includes(searchQuery.toLowerCase());
-    
+
     const matchesStatus = statusFilter === "all" || client.status === statusFilter;
-    
-    const matchesPayment = paymentFilter === "all" || client.paymentStatus === paymentFilter;
-    
+
+    const matchesPayment = paymentFilter === "all" || client.payment_status === paymentFilter;
+
     return matchesSearch && matchesStatus && matchesPayment;
   });
 
@@ -91,20 +157,42 @@ const Clients = () => {
           </Select>
         </div>
         
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredClients.map((client) => (
-            <ClientCard key={client.id} client={client} />
-          ))}
-          
-          {filteredClients.length === 0 && (
-            <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
-              <p className="text-lg font-medium">No clients found</p>
-              <p className="text-muted-foreground">
-                Try adjusting your search or filters
-              </p>
-            </div>
-          )}
-        </div>
+        {loading ? (
+          <div className="flex justify-center items-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredClients.map((client) => (
+              <ClientCard
+                key={client.id}
+                client={{
+                  id: client.id,
+                  name: client.name,
+                  email: client.email,
+                  phone: client.phone,
+                  address: client.address,
+                  status: client.status as "active" | "pending" | "completed",
+                  paymentStatus: client.payment_status as "paid" | "partial" | "unpaid",
+                  totalBudget: client.total_budget,
+                  amountPaid: client.amount_paid,
+                  notes: client.notes,
+                  lastContact: client.last_contact,
+                  priority: client.priority as "high" | "medium" | "low",
+                }}
+              />
+            ))}
+
+            {filteredClients.length === 0 && (
+              <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
+                <p className="text-lg font-medium">No clients found</p>
+                <p className="text-muted-foreground">
+                  Try adjusting your search or filters
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <AddClientForm

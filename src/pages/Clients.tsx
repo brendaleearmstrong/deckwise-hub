@@ -2,9 +2,10 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import ClientCard from "@/components/clients/ClientCard";
+import AddClientForm, { ClientFormData } from "@/components/forms/AddClientForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -13,11 +14,18 @@ import {
 } from "@/components/ui/select";
 import { mockClients } from "@/data/mockData";
 import { Plus, Search } from "lucide-react";
+import { toast } from "sonner";
 
 const Clients = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [paymentFilter, setPaymentFilter] = useState("all");
+  const [isAddClientOpen, setIsAddClientOpen] = useState(false);
+
+  const handleAddClient = (data: ClientFormData) => {
+    console.log("New client:", data);
+    toast.success("Client added successfully!");
+  };
   
   // Filter clients based on search query and filters
   const filteredClients = mockClients.filter((client) => {
@@ -41,7 +49,7 @@ const Clients = () => {
               Manage your clients and their projects
             </p>
           </div>
-          <Button size="sm" className="flex items-center gap-1 sm:self-start">
+          <Button size="sm" className="flex items-center gap-1 sm:self-start" onClick={() => setIsAddClientOpen(true)}>
             <Plus className="h-4 w-4" />
             Add Client
           </Button>
@@ -98,6 +106,12 @@ const Clients = () => {
           )}
         </div>
       </div>
+
+      <AddClientForm
+        open={isAddClientOpen}
+        onOpenChange={setIsAddClientOpen}
+        onSubmit={handleAddClient}
+      />
     </DashboardLayout>
   );
 };

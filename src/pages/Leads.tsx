@@ -1,10 +1,11 @@
 
 import { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import AddLeadForm, { LeadFormData } from "@/components/forms/AddLeadForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -15,6 +16,7 @@ import { mockClients } from "@/data/mockData";
 import { Plus, Search, Phone, Mail, AlertTriangle, Timer } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 // We'll consider leads as clients with status "pending" or with a specific lead status
 // For demonstration purposes, we'll filter the mock clients data
@@ -31,6 +33,12 @@ const Leads = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [sourceFilter, setSourceFilter] = useState("all");
+  const [isAddLeadOpen, setIsAddLeadOpen] = useState(false);
+
+  const handleAddLead = (data: LeadFormData) => {
+    console.log("New lead:", data);
+    toast.success("Lead added successfully!");
+  };
   
   // Filter leads based on search query and filters
   const filteredLeads = mockLeads.filter((lead) => {
@@ -76,7 +84,7 @@ const Leads = () => {
               Track and nurture potential clients
             </p>
           </div>
-          <Button size="sm" className="flex items-center gap-1 sm:self-start">
+          <Button size="sm" className="flex items-center gap-1 sm:self-start" onClick={() => setIsAddLeadOpen(true)}>
             <Plus className="h-4 w-4" />
             Add Lead
           </Button>
@@ -179,6 +187,12 @@ const Leads = () => {
           )}
         </div>
       </div>
+
+      <AddLeadForm
+        open={isAddLeadOpen}
+        onOpenChange={setIsAddLeadOpen}
+        onSubmit={handleAddLead}
+      />
     </DashboardLayout>
   );
 };

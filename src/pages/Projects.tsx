@@ -2,9 +2,10 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import ProjectCard from "@/components/dashboard/ProjectCard";
+import AddProjectForm, { ProjectFormData } from "@/components/forms/AddProjectForm";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -13,11 +14,18 @@ import {
 } from "@/components/ui/select";
 import { mockProjects } from "@/data/mockData";
 import { Plus, Search } from "lucide-react";
+import { toast } from "sonner";
 
 const Projects = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [isAddProjectOpen, setIsAddProjectOpen] = useState(false);
+
+  const handleAddProject = (data: ProjectFormData) => {
+    console.log("New project:", data);
+    toast.success("Project added successfully!");
+  };
   
   // Filter projects based on search query and filters
   const filteredProjects = mockProjects.filter((project) => {
@@ -42,7 +50,7 @@ const Projects = () => {
               Manage your projects and track progress
             </p>
           </div>
-          <Button size="sm" className="flex items-center gap-1 sm:self-start">
+          <Button size="sm" className="flex items-center gap-1 sm:self-start" onClick={() => setIsAddProjectOpen(true)}>
             <Plus className="h-4 w-4" />
             New Project
           </Button>
@@ -103,6 +111,12 @@ const Projects = () => {
           )}
         </div>
       </div>
+
+      <AddProjectForm
+        open={isAddProjectOpen}
+        onOpenChange={setIsAddProjectOpen}
+        onSubmit={handleAddProject}
+      />
     </DashboardLayout>
   );
 };

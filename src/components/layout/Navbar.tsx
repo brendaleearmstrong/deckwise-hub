@@ -82,7 +82,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem asChild>
-                  <Link to="/blueprints">Blueprints</Link>
+                  <Link to="/resources/blueprints">Blueprints</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/materials">Materials</Link>
@@ -163,7 +163,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
               Clients
             </Link>
             <Link
-              to="/blueprints"
+              to="/resources/blueprints"
               className="text-sm font-medium transition-colors hover:text-primary p-2"
             >
               Blueprints

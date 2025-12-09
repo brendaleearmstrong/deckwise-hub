@@ -21,14 +21,14 @@ const Index = () => {
     <div className="min-h-screen flex flex-col items-center justify-start bg-white px-4 pt-16">
       <div className="w-full max-w-md flex flex-col items-center">
         {/* Professional logo */}
-        <div className="mb-6 flex items-center gap-3 bg-gradient-to-r from-forest to-primary rounded-xl px-6 py-4 shadow-lg">
+        <div className="mb-6 flex items-center gap-3 bg-primary rounded-xl px-6 py-4 shadow-lg">
           <Hammer className="h-16 w-16 text-white" />
-          <span className="font-roboto font-bold text-4xl text-white">DeckWise</span>
+          <span className="font-roboto font-bold text-4xl text-white tracking-tight">DeckWise</span>
         </div>
 
         {/* Welcome text */}
         <h1 className="text-4xl font-bold text-slate-800 text-center mb-4">
-          Welcome to <span className="bg-gradient-to-r from-forest to-primary bg-clip-text text-transparent">DeckWise</span>
+          Welcome to <span className="text-primary font-roboto">DeckWise</span>
         </h1>
         
         {/* Tagline */}
@@ -73,7 +73,7 @@ const Index = () => {
         <div className="w-full space-y-4">
           <Card className="border border-gray-200 overflow-hidden">
             <CardContent className="p-6">
-              <div className="rounded-full bg-green-50 w-12 h-12 flex items-center justify-center mb-4 mx-auto">
+              <div className="rounded-full bg-primary/10 w-12 h-12 flex items-center justify-center mb-4 mx-auto">
                 <Briefcase className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-semibold text-center mb-2">Project Management</h3>

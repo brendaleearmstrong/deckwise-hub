@@ -47,7 +47,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
             <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle menu</span>
           </Button>
-          <Link to="/" className="flex items-center gap-2.5 md:hidden">
+          <Link to="/" className="flex items-center gap-2.5">
             <div className="p-1.5 rounded-lg bg-forest/10">
               <Hammer className="h-5 w-5 text-forest" />
             </div>

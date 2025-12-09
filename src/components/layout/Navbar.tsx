@@ -48,9 +48,8 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
             <span className="sr-only">Toggle menu</span>
           </Button>
           <Link to="/" className="flex items-center">
-            <span className="font-semibold text-xl">
-              <span className="text-blue-900">Deck</span>
-              <span className="text-green-600">Wise</span>
+            <span className="font-roboto font-bold text-3xl text-primary tracking-tight">
+              DeckWise
             </span>
           </Link>
         </div>

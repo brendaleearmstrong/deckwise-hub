@@ -20,14 +20,15 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-white px-4 pt-16">
       <div className="w-full max-w-md flex flex-col items-center">
-        {/* Hammer logo */}
-        <div className="mb-6">
-          <Hammer className="h-20 w-20 text-primary" />
+        {/* Professional logo */}
+        <div className="mb-6 flex items-center gap-3 bg-gradient-to-r from-forest to-primary rounded-xl px-6 py-4 shadow-lg">
+          <Hammer className="h-16 w-16 text-white" />
+          <span className="font-roboto font-bold text-4xl text-white">DeckWise</span>
         </div>
-        
+
         {/* Welcome text */}
         <h1 className="text-4xl font-bold text-slate-800 text-center mb-4">
-          Welcome to <span className="text-primary">Dekky</span>
+          Welcome to <span className="bg-gradient-to-r from-forest to-primary bg-clip-text text-transparent">DeckWise</span>
         </h1>
         
         {/* Tagline */}

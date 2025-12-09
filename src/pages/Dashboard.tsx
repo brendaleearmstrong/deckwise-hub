@@ -12,7 +12,7 @@ const Dashboard = () => {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome to Dekky, {currentUser.name}. Managing {currentUser.company.name} has never been easier.
+            Welcome to DeckWise, {currentUser.name}. Managing {currentUser.company.name} has never been easier.
           </p>
         </div>
         <DashboardOverview />

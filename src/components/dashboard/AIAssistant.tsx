@@ -12,7 +12,7 @@ const AIAssistant = () => {
   const [conversation, setConversation] = useState([
     {
       sender: "ai",
-      text: "Hello! I'm your Dekky assistant. How can I help you today?",
+      text: "Hello! I'm your DeckWise assistant. How can I help you today?",
     },
   ]);
 
@@ -70,14 +70,14 @@ const AIAssistant = () => {
               className="rounded-md w-auto p-2 bg-primary text-primary-foreground flex items-center gap-2"
             >
               <Bot className="h-5 w-5" />
-              <span>Dekky Assistant</span>
+              <span>DeckWise Assistant</span>
             </Button>
           ) : (
             <>
               <CardHeader className="p-3 flex flex-row items-center justify-between bg-primary text-primary-foreground">
                 <div className="flex items-center gap-2">
                   <Bot className="h-5 w-5" />
-                  <span className="font-medium">Dekky Assistant</span>
+                  <span className="font-medium">DeckWise Assistant</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Button

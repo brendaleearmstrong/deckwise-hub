@@ -207,9 +207,12 @@ const Projects = () => {
                   isDelayed: project.is_delayed,
                   delayReason: project.delay_reason,
                   weatherImpact: project.weather_impact,
-                  length: project.length,
-                  width: project.width,
-                  height: project.height,
+                  dimensions: {
+                    length: Number(project.length) || 0,
+                    width: Number(project.width) || 0,
+                    height: Number(project.height) || 0,
+                  },
+                  materials: [],
                   crew: project.crew || [],
                   notes: project.notes,
                 }}

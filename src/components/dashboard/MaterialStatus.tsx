@@ -9,22 +9,22 @@ interface MaterialStatusProps {
 }
 
 const MaterialStatus = ({ projects }: MaterialStatusProps) => {
-  // Flatten all materials from all projects
-  const allMaterials = projects.flatMap(project => project.materials);
-  
+  // Flatten all materials from all projects (handle projects without materials)
+  const allMaterials = projects.flatMap(project => project.materials || []);
+
   // Count materials by status
   const statusCounts = {
-    ordered: allMaterials.filter(m => m.status === "ordered").length,
-    received: allMaterials.filter(m => m.status === "received").length,
-    installed: allMaterials.filter(m => m.status === "installed").length,
-    needed: allMaterials.filter(m => m.status === "needed").length,
+    ordered: allMaterials.filter(m => m?.status === "ordered").length,
+    received: allMaterials.filter(m => m?.status === "received").length,
+    installed: allMaterials.filter(m => m?.status === "installed").length,
+    needed: allMaterials.filter(m => m?.status === "needed").length,
   };
-  
+
   // Calculate total cost for each status
   const calculateTotalCost = (status: string) => {
     return allMaterials
-      .filter(m => m.status === status)
-      .reduce((sum, material) => sum + material.totalPrice, 0);
+      .filter(m => m?.status === status)
+      .reduce((sum, material) => sum + (material?.totalPrice || 0), 0);
   };
   
   const statusData = [

@@ -16,8 +16,8 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="flex">
         <Sidebar sidebarOpen={sidebarOpen} />
-        <main 
-          className="flex-1 transition-all duration-300 px-4 py-6 md:px-6 md:py-8 md:ml-64 pb-20 md:pb-8"
+        <main
+          className="flex-1 transition-all duration-300 px-4 py-6 md:px-8 md:py-8 md:ml-64 pb-20 md:pb-8 max-w-[1600px]"
         >
           {children}
         </main>

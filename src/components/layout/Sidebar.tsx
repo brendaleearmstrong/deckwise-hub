@@ -45,15 +45,17 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}
     >
-      <div className="h-full flex flex-col px-4 py-6">
-        <div className="flex items-center gap-3 px-2 mb-8">
-          <div className="flex items-center gap-2 bg-gradient-to-r from-forest to-primary rounded-lg px-3 py-2 shadow-md">
+      <div className="h-full flex flex-col">
+        <div className="flex items-center justify-center px-4 py-6 border-b">
+          <Link to="/dashboard" className="flex items-center gap-2 bg-gradient-to-r from-forest to-primary rounded-lg px-4 py-2.5 shadow-md hover:shadow-lg transition-shadow">
             <Hammer className="h-6 w-6 text-white" />
             <span className="font-roboto font-bold text-xl text-white">DeckWise</span>
-          </div>
+          </Link>
         </div>
-        
-        <nav className="space-y-1 flex-1">
+
+        <div className="flex-1 overflow-y-auto px-4 py-6">
+
+        <nav className="space-y-1">
           <Link
             to="/dashboard"
             className={cn(
@@ -216,8 +218,9 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             Quality Checker
           </Link>
         </nav>
-        
-        <div className="mt-auto space-y-1">
+        </div>
+
+        <div className="border-t px-4 py-4 space-y-1">
           <Link
             to="/settings"
             className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-slate-600 hover:bg-slate-100"

@@ -47,11 +47,11 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
             <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle menu</span>
           </Button>
-          <Link to="/" className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-forest/10">
-              <Hammer className="h-5 w-5 text-forest" />
-            </div>
-            <span className="font-semibold text-lg text-slate-800">DeckWise</span>
+          <Link to="/" className="flex items-center">
+            <span className="font-semibold text-xl">
+              <span className="text-blue-900">Deck</span>
+              <span className="text-green-600">Wise</span>
+            </span>
           </Link>
         </div>
 

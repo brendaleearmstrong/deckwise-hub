@@ -46,10 +46,12 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
       )}
     >
       <div className="h-full flex flex-col">
-        <div className="flex items-center justify-center px-4 py-6 border-b">
-          <Link to="/dashboard" className="flex items-center gap-2 bg-gradient-to-r from-forest to-primary rounded-lg px-4 py-2.5 shadow-md hover:shadow-lg transition-shadow">
-            <Hammer className="h-6 w-6 text-white" />
-            <span className="font-roboto font-bold text-xl text-white">DeckWise</span>
+        <div className="flex items-center px-6 py-5 border-b">
+          <Link to="/dashboard" className="flex items-center gap-3 group">
+            <div className="p-2 rounded-lg bg-forest/10 group-hover:bg-forest/20 transition-colors">
+              <Hammer className="h-5 w-5 text-forest" />
+            </div>
+            <span className="font-semibold text-xl text-slate-800">DeckWise</span>
           </Link>
         </div>
 

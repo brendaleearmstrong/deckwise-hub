@@ -37,7 +37,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-white shadow-sm">
       <div className="flex h-16 items-center justify-between px-4 md:px-8">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Button
             variant="outline"
             size="icon"
@@ -47,11 +47,11 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
             <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle menu</span>
           </Button>
-          <Link to="/" className="flex items-center gap-2">
-            <div className="flex items-center gap-2 bg-gradient-to-r from-forest to-primary rounded-lg px-3 py-2 shadow-sm">
-              <Hammer className="h-6 w-6 text-white" />
-              <span className="font-roboto font-bold text-xl text-white hidden md:inline-block">DeckWise</span>
+          <Link to="/" className="flex items-center gap-2.5 md:hidden">
+            <div className="p-1.5 rounded-lg bg-forest/10">
+              <Hammer className="h-5 w-5 text-forest" />
             </div>
+            <span className="font-semibold text-lg text-slate-800">DeckWise</span>
           </Link>
         </div>
 

@@ -17,6 +17,9 @@ import Blueprints from "./pages/resources/Blueprints";
 import Guides from "./pages/resources/Guides";
 import Tools from "./pages/resources/Tools";
 import Templates from "./pages/resources/Templates";
+import Materials from "./pages/Materials";
+import Scheduler from "./pages/Scheduler";
+import QualityChecker from "./pages/QualityChecker";
 
 const queryClient = new QueryClient();
 
@@ -42,10 +45,12 @@ const App = () => (
           <Route path="/resources/tools" element={<Tools />} />
           <Route path="/resources/templates" element={<Templates />} />
           
+          {/* Additional Pages */}
+          <Route path="/materials" element={<Materials />} />
+          <Route path="/scheduler" element={<Scheduler />} />
+          <Route path="/quality-checker" element={<QualityChecker />} />
+
           {/* These routes are placeholders for future implementation */}
-          <Route path="/materials" element={<Dashboard />} />
-          <Route path="/scheduler" element={<Dashboard />} />
-          <Route path="/quality-checker" element={<Dashboard />} />
           <Route path="/settings" element={<Dashboard />} />
           <Route path="/help" element={<Dashboard />} />
           {/* Catch-all route */}

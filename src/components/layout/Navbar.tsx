@@ -48,9 +48,9 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
             <span className="sr-only">Toggle menu</span>
           </Button>
           <Link to="/" className="flex items-center gap-2">
-            <div className="flex items-center gap-2 bg-gradient-to-r from-forest to-primary rounded-lg px-2 py-1">
-              <Hammer className="h-5 w-5 text-white" />
-              <span className="font-roboto font-bold text-lg text-white hidden md:inline-block">DeckWise</span>
+            <div className="flex items-center gap-2 bg-gradient-to-r from-forest to-primary rounded-lg px-3 py-2 shadow-sm">
+              <Hammer className="h-6 w-6 text-white" />
+              <span className="font-roboto font-bold text-xl text-white hidden md:inline-block">DeckWise</span>
             </div>
           </Link>
         </div>

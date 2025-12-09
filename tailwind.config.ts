@@ -69,6 +69,12 @@ export default {
 					dark: '#2A4560',
 					foreground: '#FFFFFF'
 				},
+				forest: {
+					DEFAULT: '#047857',
+					light: '#059669',
+					dark: '#064E3B',
+					foreground: '#FFFFFF'
+				},
 				green: {
 					50: '#ECFDF5',
 					100: '#D1FAE5',

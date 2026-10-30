@@ -13,6 +13,7 @@ const JoistCalculator = () => {
   const [joistSize, setJoistSize] = useState<string>("2x8");
   const [loadType, setLoadType] = useState<string>("residential");
   const [results, setResults] = useState<{ spacing: number; quantity: number; totalLength: number } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   // Canadian National Building Code spacing recommendations
   const getRecommendedSpacing = () => {
@@ -27,6 +28,13 @@ const JoistCalculator = () => {
   };
 
   const calculateJoists = () => {
+    if (!(length > 0) || !(width > 0)) {
+      setResults(null);
+      setError("Deck length and width must be greater than zero.");
+      return;
+    }
+    setError(null);
+
     // Convert feet to inches for calculations
     const lengthInches = length * 12;
     const widthInches = width * 12;
@@ -109,6 +117,10 @@ const JoistCalculator = () => {
             </SelectContent>
           </Select>
         </div>
+
+        {error && (
+          <p role="alert" className="text-sm text-destructive">{error}</p>
+        )}
 
         <Button className="w-full bg-forest hover:bg-forest/90" onClick={calculateJoists}>
           Calculate

@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Bell, User, X, Calendar, Hammer, ChevronDown } from "lucide-react";
+import { Menu, Bell, User, X, Calendar, Hammer, ChevronDown, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -13,13 +13,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { getUnreadAlerts, currentUser } from "@/data/mockData";
+import { cn } from "@/lib/utils";
 
 interface NavbarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
+  assistantOpen: boolean;
+  onToggleAssistant: () => void;
 }
 
-const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
+const Navbar = ({ sidebarOpen, setSidebarOpen, assistantOpen, onToggleAssistant }: NavbarProps) => {
   const unreadAlerts = getUnreadAlerts();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   
@@ -96,6 +99,14 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <Button
+              variant="ghost"
+              className={cn("flex items-center gap-2 h-8 px-2 text-sm font-medium", assistantOpen && "text-primary")}
+              onClick={onToggleAssistant}
+            >
+              <Bot className="h-4 w-4" />
+              DeckWise Assistant
+            </Button>
           </nav>
         </div>
 
@@ -186,6 +197,16 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }: NavbarProps) => {
             >
               Quality Checker
             </Link>
+            <button
+              onClick={() => {
+                onToggleAssistant();
+                setShowMobileMenu(false);
+              }}
+              className="text-left text-sm font-medium transition-colors hover:text-primary p-2 flex items-center gap-2"
+            >
+              <Bot className="h-4 w-4" />
+              DeckWise Assistant
+            </button>
           </nav>
         </div>
       )}

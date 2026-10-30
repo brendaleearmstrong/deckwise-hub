@@ -3,6 +3,8 @@ import { useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import FooterNav from "./FooterNav";
+import SiteFooter from "./SiteFooter";
+import AIAssistant from "@/components/dashboard/AIAssistant";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -10,10 +12,19 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [assistantOpen, setAssistantOpen] = useState(false);
+
+  const toggleAssistant = () => setAssistantOpen((open) => !open);
+  const closeAssistant = () => setAssistantOpen(false);
 
   return (
     <div className="relative min-h-screen bg-background">
-      <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Navbar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        assistantOpen={assistantOpen}
+        onToggleAssistant={toggleAssistant}
+      />
       <div className="flex">
         <Sidebar sidebarOpen={sidebarOpen} />
         <main
@@ -22,7 +33,9 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           {children}
         </main>
       </div>
-      <FooterNav />
+      <SiteFooter onOpenAssistant={toggleAssistant} />
+      <FooterNav assistantOpen={assistantOpen} onToggleAssistant={toggleAssistant} />
+      {assistantOpen && <AIAssistant onClose={closeAssistant} />}
     </div>
   );
 };

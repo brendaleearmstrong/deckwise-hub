@@ -19,6 +19,7 @@ import {
   ExternalLink,
   ChevronRight,
   ChevronDown,
+  Receipt,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -105,6 +106,18 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
           >
             <UserPlus className="h-5 w-5" />
             Leads
+          </Link>
+          <Link
+            to="/quotes"
+            className={cn(
+              "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+              isActive("/quotes")
+                ? "bg-slate text-white"
+                : "text-slate-600 hover:bg-slate-100"
+            )}
+          >
+            <Receipt className="h-5 w-5" />
+            Quotes
           </Link>
           
           {/* Resources Dropdown */}

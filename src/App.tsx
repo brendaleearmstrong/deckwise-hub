@@ -11,6 +11,7 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Clients from "./pages/Clients";
 import ClientDetail from "./pages/ClientDetail";
 import Leads from "./pages/Leads";
+import Quotes from "./pages/Quotes";
 import NotFound from "./pages/NotFound";
 import Resources from "./pages/Resources";
 import Blueprints from "./pages/resources/Blueprints";
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/clients" element={<Clients />} />
           <Route path="/clients/:id" element={<ClientDetail />} />
           <Route path="/leads" element={<Leads />} />
+          <Route path="/quotes" element={<Quotes />} />
           
           {/* Resources Section */}
           <Route path="/resources" element={<Resources />} />

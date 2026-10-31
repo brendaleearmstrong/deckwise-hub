@@ -1,7 +1,7 @@
 
 import ResourcesLayout from "@/components/layout/ResourcesLayout";
 import ResourceCard from "@/components/resources/ResourceCard";
-import { FileText, Book, Wrench, ExternalLink } from "lucide-react";
+import { FileText, Book, Wrench, ExternalLink, Receipt } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const Resources = () => {
@@ -11,10 +11,10 @@ const Resources = () => {
     <ResourcesLayout title="Resources Center">
       <p className="text-slate-600 mb-6">
         Access all your construction resources in one place. Find blueprints, guides, tool calculators, 
-        and document templates to streamline your workflow.
+        document templates, and client quotes to streamline your workflow.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <ResourceCard
           title="Blueprints"
           description="Access, upload, and manage your project blueprints and designs."
@@ -41,6 +41,13 @@ const Resources = () => {
           description="Client contracts, invoices, and project documentation templates."
           icon={ExternalLink}
           link="/resources/templates"
+          className={isMobile ? "w-full" : ""}
+        />
+        <ResourceCard
+          title="Quote Builder"
+          description="Build itemized client quotes, print them, and track which are won."
+          icon={Receipt}
+          link="/resources/quote-builder"
           className={isMobile ? "w-full" : ""}
         />
       </div>

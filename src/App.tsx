@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
@@ -11,13 +11,13 @@ import ProjectDetail from "./pages/ProjectDetail";
 import Clients from "./pages/Clients";
 import ClientDetail from "./pages/ClientDetail";
 import Leads from "./pages/Leads";
-import Quotes from "./pages/Quotes";
 import NotFound from "./pages/NotFound";
 import Resources from "./pages/Resources";
 import Blueprints from "./pages/resources/Blueprints";
 import Guides from "./pages/resources/Guides";
 import Tools from "./pages/resources/Tools";
 import Templates from "./pages/resources/Templates";
+import Quotes from "./pages/resources/Quotes";
 import Materials from "./pages/Materials";
 import Scheduler from "./pages/Scheduler";
 import QualityChecker from "./pages/QualityChecker";
@@ -38,7 +38,7 @@ const App = () => (
           <Route path="/clients" element={<Clients />} />
           <Route path="/clients/:id" element={<ClientDetail />} />
           <Route path="/leads" element={<Leads />} />
-          <Route path="/quotes" element={<Quotes />} />
+          <Route path="/quotes" element={<Navigate to="/resources/quote-builder" replace />} />
           
           {/* Resources Section */}
           <Route path="/resources" element={<Resources />} />
@@ -46,6 +46,7 @@ const App = () => (
           <Route path="/resources/guides" element={<Guides />} />
           <Route path="/resources/tools" element={<Tools />} />
           <Route path="/resources/templates" element={<Templates />} />
+          <Route path="/resources/quote-builder" element={<Quotes />} />
           
           {/* Additional Pages */}
           <Route path="/materials" element={<Materials />} />

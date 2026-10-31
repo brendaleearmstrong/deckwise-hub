@@ -23,6 +23,7 @@ const resourceLinks = [
   { label: "Guides & Standards", to: "/resources/guides" },
   { label: "Tools & Calculators", to: "/resources/tools" },
   { label: "Templates & Documents", to: "/resources/templates" },
+  { label: "Quote Builder", to: "/resources/quote-builder" },
 ];
 
 const linkClass = "text-sm text-slate-600 transition-colors hover:text-primary";

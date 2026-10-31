@@ -29,7 +29,7 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen }: SidebarProps) => {
   const location = useLocation();
-  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(location.pathname.startsWith("/resources"));
   
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -107,18 +107,6 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
             <UserPlus className="h-5 w-5" />
             Leads
           </Link>
-          <Link
-            to="/quotes"
-            className={cn(
-              "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-              isActive("/quotes")
-                ? "bg-slate text-white"
-                : "text-slate-600 hover:bg-slate-100"
-            )}
-          >
-            <Receipt className="h-5 w-5" />
-            Quotes
-          </Link>
           
           {/* Resources Dropdown */}
           <div className="relative">
@@ -191,6 +179,18 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
                 >
                   <ExternalLink className="h-4 w-4" />
                   Templates
+                </Link>
+                <Link
+                  to="/resources/quote-builder"
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    isActive("/resources/quote-builder")
+                      ? "bg-slate text-white"
+                      : "text-slate-600 hover:bg-slate-100"
+                  )}
+                >
+                  <Receipt className="h-4 w-4" />
+                  Quote Builder
                 </Link>
               </div>
             )}

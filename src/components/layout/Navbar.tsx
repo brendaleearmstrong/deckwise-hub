@@ -88,6 +88,9 @@ const Navbar = ({ sidebarOpen, setSidebarOpen, assistantOpen, onToggleAssistant 
                   <Link to="/resources/blueprints">Blueprints</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
+                  <Link to="/resources/quote-builder">Quote Builder</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link to="/materials">Materials</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -178,6 +181,12 @@ const Navbar = ({ sidebarOpen, setSidebarOpen, assistantOpen, onToggleAssistant 
               className="text-sm font-medium transition-colors hover:text-primary p-2"
             >
               Blueprints
+            </Link>
+            <Link
+              to="/resources/quote-builder"
+              className="text-sm font-medium transition-colors hover:text-primary p-2"
+            >
+              Quote Builder
             </Link>
             <Link
               to="/materials"

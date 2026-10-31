@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import ResourcesLayout from "@/components/layout/ResourcesLayout";
 import QuoteBuilder, { QuoteFormData } from "@/components/quotes/QuoteBuilder";
 import QuotePreview from "@/components/quotes/QuotePreview";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Eye, FileText, Loader2, Plus, Search } from "lucide-react";
+import { Eye, FileText, HardDrive, Loader2, Plus, Search } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
@@ -25,6 +25,12 @@ import {
   generateQuoteNumber,
   isQuoteExpired,
 } from "@/lib/quotes";
+import {
+  addLocalQuote,
+  isMissingQuotesTable,
+  loadLocalQuotes,
+  updateLocalQuoteStatus,
+} from "@/lib/quoteStorage";
 
 interface ClientRow {
   id: string;
@@ -50,6 +56,18 @@ const STATUS_STYLES: Record<QuoteStatus, string> = {
   declined: "status-badge-danger",
 };
 
+type StorageMode = "database" | "browser";
+
+const normalizeQuote = (row: Quote): Quote => ({
+  ...row,
+  line_items: Array.isArray(row.line_items) ? row.line_items : [],
+  tax_rate: Number(row.tax_rate),
+  discount: Number(row.discount),
+  subtotal: Number(row.subtotal),
+  tax_amount: Number(row.tax_amount),
+  total: Number(row.total),
+});
+
 const Quotes = () => {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [clients, setClients] = useState<ClientRow[]>([]);
@@ -58,6 +76,12 @@ const Quotes = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [builderOpen, setBuilderOpen] = useState(false);
   const [previewQuote, setPreviewQuote] = useState<Quote | null>(null);
+  const [storageMode, setStorageMode] = useState<StorageMode>("database");
+
+  const switchToBrowserStorage = () => {
+    setStorageMode("browser");
+    setQuotes(loadLocalQuotes().map(normalizeQuote));
+  };
 
   const fetchData = async () => {
     try {
@@ -75,21 +99,17 @@ const Quotes = () => {
           .order("name", { ascending: true }),
       ]);
 
-      if (quotesResult.error) throw quotesResult.error;
       if (clientsResult.error) throw clientsResult.error;
-
-      setQuotes(
-        (quotesResult.data || []).map((row: Quote) => ({
-          ...row,
-          line_items: Array.isArray(row.line_items) ? row.line_items : [],
-          tax_rate: Number(row.tax_rate),
-          discount: Number(row.discount),
-          subtotal: Number(row.subtotal),
-          tax_amount: Number(row.tax_amount),
-          total: Number(row.total),
-        })),
-      );
       setClients(clientsResult.data || []);
+
+      if (isMissingQuotesTable(quotesResult.error)) {
+        switchToBrowserStorage();
+        return;
+      }
+      if (quotesResult.error) throw quotesResult.error;
+
+      setStorageMode("database");
+      setQuotes((quotesResult.data || []).map(normalizeQuote));
     } catch (error) {
       console.error("Error fetching quotes:", error);
       toast.error("Failed to load quotes");
@@ -98,8 +118,10 @@ const Quotes = () => {
     }
   };
 
+  // Load once when the page opens; later refreshes are triggered explicitly after saves.
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clientsById = useMemo(
@@ -109,24 +131,33 @@ const Quotes = () => {
 
   const handleCreateQuote = async (data: QuoteFormData) => {
     const totals = calculateQuoteTotals(data.lineItems, data.taxRate, data.discount);
+    const quote = {
+      client_id: data.clientId,
+      quote_number: generateQuoteNumber(),
+      title: data.title,
+      status: "draft" as const,
+      valid_until: data.validUntil,
+      line_items: data.lineItems,
+      tax_rate: data.taxRate,
+      discount: totals.discount,
+      subtotal: totals.subtotal,
+      tax_amount: totals.taxAmount,
+      total: totals.total,
+      notes: data.notes || null,
+    };
+
+    const saveInBrowser = () => {
+      if (!addLocalQuote(quote)) throw new Error("Browser storage unavailable");
+      switchToBrowserStorage();
+      toast.success("Quote saved in this browser");
+      return true;
+    };
+
     try {
-      const { error } = await supabase.from("quotes").insert([
-        {
-          user_id: DEMO_USER_ID,
-          client_id: data.clientId,
-          quote_number: generateQuoteNumber(),
-          title: data.title,
-          status: "draft",
-          valid_until: data.validUntil,
-          line_items: data.lineItems,
-          tax_rate: data.taxRate,
-          discount: totals.discount,
-          subtotal: totals.subtotal,
-          tax_amount: totals.taxAmount,
-          total: totals.total,
-          notes: data.notes || null,
-        },
-      ]);
+      if (storageMode === "browser") return saveInBrowser();
+
+      const { error } = await supabase.from("quotes").insert([{ user_id: DEMO_USER_ID, ...quote }]);
+      if (isMissingQuotesTable(error)) return saveInBrowser();
       if (error) throw error;
 
       toast.success("Quote saved");
@@ -142,7 +173,12 @@ const Quotes = () => {
   const handleStatusChange = async (quote: Quote, status: QuoteStatus) => {
     const previous = quote.status;
     setQuotes((current) => current.map((q) => (q.id === quote.id ? { ...q, status } : q)));
-    const { error } = await supabase.from("quotes").update({ status }).eq("id", quote.id);
+    let error: unknown = null;
+    if (storageMode === "browser") {
+      if (!updateLocalQuoteStatus(quote.id, status)) error = new Error("Browser storage unavailable");
+    } else {
+      ({ error } = await supabase.from("quotes").update({ status }).eq("id", quote.id));
+    }
     if (error) {
       console.error("Error updating quote status:", error);
       setQuotes((current) => current.map((q) => (q.id === quote.id ? { ...q, status: previous } : q)));
@@ -173,13 +209,12 @@ const Quotes = () => {
     : null;
 
   return (
-    <DashboardLayout>
+    <ResourcesLayout title="Quote Builder">
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">Quotes</h1>
-            <p className="text-muted-foreground">Build itemized quotes and track your clients' answers</p>
-          </div>
+          <p className="text-slate-600">
+            Build itemized quotes for your clients, print them, and track which ones are won.
+          </p>
           <Button
             size="sm"
             className="flex items-center gap-1 sm:self-start"
@@ -189,6 +224,19 @@ const Quotes = () => {
             New Quote
           </Button>
         </div>
+
+        {storageMode === "browser" && (
+          <div
+            role="status"
+            className="flex items-start gap-3 rounded-md border border-warning/40 bg-warning/10 p-3 text-sm"
+          >
+            <HardDrive className="h-4 w-4 mt-0.5 shrink-0" />
+            <p>
+              Quotes are being saved in this browser for now. They'll be stored with the rest of your
+              data once the quotes table is added to the database.
+            </p>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Card>
@@ -333,7 +381,7 @@ const Quotes = () => {
         client={previewQuote ? clientsById.get(previewQuote.client_id) : undefined}
         onOpenChange={(open) => !open && setPreviewQuote(null)}
       />
-    </DashboardLayout>
+    </ResourcesLayout>
   );
 };
 

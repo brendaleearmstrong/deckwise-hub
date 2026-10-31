@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeAll, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { toast } from "sonner";
-import Quotes from "@/pages/Quotes";
+import Quotes from "@/pages/resources/Quotes";
 
 const { fromMock } = vi.hoisted(() => ({ fromMock: vi.fn() }));
 
@@ -14,7 +14,7 @@ vi.mock("sonner", () => ({
   toast: { success: vi.fn(), error: vi.fn() },
 }));
 
-vi.mock("@/components/layout/DashboardLayout", () => ({
+vi.mock("@/components/layout/ResourcesLayout", () => ({
   default: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
@@ -78,6 +78,11 @@ const quotes = [
   },
 ];
 
+const MISSING_TABLE = {
+  code: "PGRST205",
+  message: "Could not find the table 'public.quotes' in the schema cache",
+};
+
 interface MockOptions {
   quoteRows?: unknown;
   quoteError?: unknown;
@@ -121,6 +126,7 @@ const chooseOption = async (trigger: HTMLElement, optionName: string) => {
 describe("Quotes page", () => {
   beforeEach(() => {
     fromMock.mockReset();
+    window.localStorage.clear();
     vi.mocked(toast.error).mockReset();
     vi.mocked(toast.success).mockReset();
     vi.spyOn(console, "error").mockImplementation(() => {});
@@ -298,5 +304,74 @@ describe("Quotes page", () => {
     expect(within(dialog).getAllByText("$1,130.00").length).toBeGreaterThan(0);
     expect(within(dialog).getByText("50% deposit")).toBeTruthy();
     expect(within(dialog).getByRole("button", { name: /Print/ })).toBeTruthy();
+  });
+
+  describe("before the quotes table exists in the database", () => {
+    const fillAndSave = async (title: string, description: string, price: string) => {
+      fireEvent.click(screen.getByRole("button", { name: /New Quote/ }));
+      const dialog = await screen.findByRole("dialog");
+      await chooseOption(within(dialog).getByLabelText("Client"), "Jane Doe");
+      fireEvent.change(within(dialog).getByLabelText("Title *"), { target: { value: title } });
+      fireEvent.change(within(dialog).getByLabelText("Description, line 1"), {
+        target: { value: description },
+      });
+      fireEvent.change(within(dialog).getByLabelText("Unit price, line 1"), { target: { value: price } });
+      fireEvent.click(within(dialog).getByRole("button", { name: "Save Quote" }));
+    };
+
+    it("loads without an error and explains quotes are kept in the browser", async () => {
+      mockSupabase({ quoteRows: null, quoteError: MISSING_TABLE });
+      renderQuotes();
+
+      expect(await screen.findByText("No quotes yet")).toBeTruthy();
+      expect(screen.getByRole("status").textContent).toMatch(/saved in this browser/);
+      expect(toast.error).not.toHaveBeenCalled();
+    });
+
+    it("saves new quotes and status changes in the browser and keeps them after a reload", async () => {
+      const insert = vi.fn();
+      const update = vi.fn();
+      mockSupabase({ quoteRows: null, quoteError: MISSING_TABLE, insert, update });
+      const view = renderQuotes();
+      await screen.findByText("No quotes yet");
+
+      await fillAndSave("Front steps", "Stair kit", "400");
+
+      expect(await screen.findByText("Front steps")).toBeTruthy();
+      expect(insert).not.toHaveBeenCalled();
+      expect(toast.success).toHaveBeenCalledWith("Quote saved in this browser");
+      await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+
+      const [row] = screen.getAllByTestId("quote-row");
+      const statusTrigger = within(row).getByLabelText(/^Status for Q-/);
+      await chooseOption(statusTrigger, "Accepted");
+      expect(update).not.toHaveBeenCalled();
+
+      view.unmount();
+      renderQuotes();
+      expect(await screen.findByText("Front steps")).toBeTruthy();
+      expect(screen.getByTestId("stat-accepted").textContent).toBe("$400.00");
+    });
+
+    it("falls back to the browser if the table is missing when saving", async () => {
+      const insert = vi.fn().mockResolvedValue({ error: MISSING_TABLE });
+      mockSupabase({ quoteRows: [], insert });
+      renderQuotes();
+      await screen.findByText("No quotes yet");
+
+      await fillAndSave("Hot tub pad", "Concrete", "900");
+
+      expect(await screen.findByText("Hot tub pad")).toBeTruthy();
+      expect(insert).toHaveBeenCalledTimes(1);
+      expect(toast.error).not.toHaveBeenCalled();
+      expect(screen.getByRole("status")).toBeTruthy();
+    });
+
+    it("still reports other database errors instead of hiding them", async () => {
+      mockSupabase({ quoteRows: null, quoteError: { code: "500", message: "network down" } });
+      renderQuotes();
+      await waitFor(() => expect(toast.error).toHaveBeenCalledWith("Failed to load quotes"));
+      expect(screen.queryByRole("status")).toBeNull();
+    });
   });
 });

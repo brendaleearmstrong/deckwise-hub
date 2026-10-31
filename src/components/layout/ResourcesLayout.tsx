@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import DashboardLayout from "./DashboardLayout";
-import { FileText, Book, Wrench, ExternalLink } from "lucide-react";
+import { FileText, Book, Wrench, ExternalLink, Receipt } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -90,6 +90,19 @@ const ResourcesLayout = ({ children, title }: ResourcesLayoutProps) => {
               <ExternalLink className="h-4 w-4" />
               {!isMobile && "Templates"}
               {isMobile && <span className="sr-only">Templates</span>}
+            </Link>
+            <Link
+              to="/resources/quote-builder"
+              className={cn(
+                "py-2 px-4 rounded-md whitespace-nowrap text-sm font-medium transition-colors flex items-center gap-2",
+                isActive("/resources/quote-builder")
+                  ? "bg-slate text-white"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              )}
+            >
+              <Receipt className="h-4 w-4" />
+              {!isMobile && "Quote Builder"}
+              {isMobile && <span className="sr-only">Quote Builder</span>}
             </Link>
           </div>
         </ScrollArea>

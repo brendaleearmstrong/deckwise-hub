@@ -19,6 +19,7 @@ import {
   ExternalLink,
   ChevronRight,
   ChevronDown,
+  Receipt,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -28,7 +29,7 @@ interface SidebarProps {
 
 const Sidebar = ({ sidebarOpen }: SidebarProps) => {
   const location = useLocation();
-  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(location.pathname.startsWith("/resources"));
   
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -178,6 +179,18 @@ const Sidebar = ({ sidebarOpen }: SidebarProps) => {
                 >
                   <ExternalLink className="h-4 w-4" />
                   Templates
+                </Link>
+                <Link
+                  to="/resources/quote-builder"
+                  className={cn(
+                    "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    isActive("/resources/quote-builder")
+                      ? "bg-slate text-white"
+                      : "text-slate-600 hover:bg-slate-100"
+                  )}
+                >
+                  <Receipt className="h-4 w-4" />
+                  Quote Builder
                 </Link>
               </div>
             )}
